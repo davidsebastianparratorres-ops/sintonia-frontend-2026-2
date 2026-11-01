@@ -1,20 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import "./Navbar.css";
-import Icono from "./Icono";
-import Logo from "../assets/logo.svg";
+import Icono from "../Icono";
+import Logo from "../../assets/logo.svg";
 const DESTINOS_INVITADO = {
-  descubrir: "/descubrir",
-  planes: "/planes",
-  paraArtistas: "/paraArtistas",
-  ayuda: "/ayuda",
-};
-const DESTINOS_SESION = {
   inicio: "/inicio",
-  buscar: "/buscar",
-  sesiones: "/sesiones",
-  tuBiblioteca: "/tuBiblioteca",
-  descargas: "/descargas",
+  catalogo: "/catalogo",
 };
+
 
 const Navbar = ({
   textos,
@@ -34,17 +26,17 @@ const Navbar = ({
   const campoBusqueda = useRef(null);
   const nav = textos?.navbar;
   const ingles = idioma === "en"; //Toma el valor de la variable idioma solo si es ingles
-  const etiquetaFavoritos =
+  /* const etiquetaFavoritos =
     nav?.botones?.favoritos ?? (ingles ? "Favorites" : "Favoritos");
   const etiquetaBusqueda =
     nav?.buscador?.aria ?? (ingles ? "Search" : "Buscar");
-  const botonBusqueda = nav?.buscador?.boton ?? (ingles ? "Search" : "Buscar");
+  const botonBusqueda = nav?.buscador?.boton ?? (ingles ? "Search" : "Buscar"); */
 
   const abrir =
     textos?.menuMovil.abrir ?? (ingles ? "Open menu" : "Abrir menu");
   const cerrar =
     textos?.menuMovil.cerrar ?? (ingles ? "Close menu" : "Cerrar menu");
-  const enlacesInvitado = Object.entries(nav?.enlaces?.invitado ?? {}).filter(
+  const enlacesInvitado = Object.entries(nav?.enlaces ?? {}).filter(
     ([clave]) => DESTINOS_INVITADO[clave],
   );
   //convierte objeto en un arreglo de pares
@@ -171,38 +163,6 @@ const Navbar = ({
           )}
 
           <div className="navbar-utilidades">
-            <div className="navbar-utilidad-fila">
-              <span>{textos?.menuMovil?.secciones?.idioma}</span>
-               <div className="navbar-idiomas-movil">
-                <button
-                  type="button"
-                  className="navbar-idioma-boton-es"
-                  onClick={() => cambiarIdioma("es")}
-                >
-                  ES
-                </button>
-                <button
-                  type="button"
-                  className="navbar-idioma-boton-en"
-                  onClick={() => cambiarIdioma("en")}
-                >
-                  EN
-                </button>
-                </div>
-                
-              <label className="navbar-idioma">
-                <Icono nombre="idioma" />
-                <select
-                  value={idioma}
-                  onChange={(evento) => cambiarIdioma(evento.target.value)}
-                  aria-label={nav?.aria.idioma ?? "Cambiar idioma"}
-                >
-                  <option value="es">ES</option>
-                  <option value="en">EN</option>
-                </select>
-                
-              </label>
-            </div>
             <button
               className="navbar-accesibilidad"
               type="button"
@@ -210,11 +170,37 @@ const Navbar = ({
               aria-pressed={textoGrande}
               onClick={alternarTexto}
             >
-              <Icono nombre="accesibilidad" />
               <span>{textos?.menuMovil?.secciones.accesibilidad}</span>
+              <div className="navbar-accesibilidad-movil"><Icono nombre="accesibilidad" /></div>
+              
+
             </button>
-            {/*             {nav && <a className="navbar-accion" href="#favoritos" onClick={() => setAbierto(false)}>{etiquetaFavoritos}</a>}
-             */}{" "}
+            <div className="navbar-utilidad-fila">
+              <span>{textos?.menuMovil?.secciones?.idioma}</span>
+               <div className="navbar-idiomas-movil">
+                <label className="navbar-idioma">
+                  <button
+                  type="button"
+                  className="navbar-idioma-boton-es"
+                  aria-pressed={idioma==="es"}
+                  onClick={() => cambiarIdioma("es")}
+                >
+                  ES
+                </button>
+                <button
+                  type="button"
+                  className="navbar-idioma-boton-en"
+                  aria-pressed={idioma==="en"}
+                  onClick={() => cambiarIdioma("en")}
+                >
+                  EN
+                </button>
+                </label>
+                
+                </div>
+                
+
+            </div>
           </div>
           <div className="navbar-sesion">
             <button
