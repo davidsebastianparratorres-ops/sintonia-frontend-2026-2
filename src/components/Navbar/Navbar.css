@@ -92,11 +92,7 @@
   color: var(--texto-principal);
 } */
 
-.navbar-icono:hover,
-.navbar-icono[aria-pressed="true"] {
-  color: var(--texto-principal);
-  background: var(--fondo-sutil);
-}
+
 .navbar-icono:disabled {
   opacity: 0.5;
   cursor: wait;
@@ -270,11 +266,7 @@
   height: 64px;
   padding: 0px 12px;
 }
-.navbar-accesibilidad:hover,
-.navbar-accesibilidad[aria-pressed="true"] {
-    color: var(--texto-principal);
-    background: var(--fondo-sutil);
-}
+
 .navbar-accesibilidad-movil{
   margin-left: auto;
 }
@@ -510,7 +502,11 @@
     border: transparent;
   }
   
-
+  .navbar-accesibilidad:hover,
+  .navbar-accesibilidad[aria-pressed="true"] {
+    color: var(--texto-principal);
+    background: var(--fondo-sutil);
+  }
   
 
   .navbar-idioma {
@@ -527,4 +523,5 @@
   .navbar-panel-idiomas {
     display: none;
   }
+  
 }

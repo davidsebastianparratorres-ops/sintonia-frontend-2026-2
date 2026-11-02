@@ -1,7 +1,10 @@
 import { useTextos } from "./hooks/useTextos.js";
+import { useCatalogo } from "./hooks/useCatalogo.js";
+import { useGeneros } from "./hooks/useGeneros.js";
 import "./App.css";
-import Navbar from "./components/Navbar/Navbar.jsx"
-import Footer from "./components/Footer/Footer.jsx"
+import Navbar from "./components/Navbar/Navbar.jsx";
+import Footer from "./components/Footer/Footer.jsx";
+import HeroSintonia from "./components/HeroSintonia/HeroSintonia.jsx";
 import { useEffect, useState } from "react";
 
 function leerSeccion() {
@@ -16,6 +19,7 @@ function App() {
   const [consulta, setConsulta] = useState("");
   const [textoGrande, setTextoGrande] = useState(false);
   const datos = useTextos(idioma);
+  const { generos } = useGeneros();
   console.log(datos);
 
   const ingles = idioma === "en";
@@ -48,7 +52,7 @@ function App() {
     setConsulta(valor);
     setActivo("heroes");
     //window.history da acceso al historial de la pestaña
-    window.history.replaceState(null, "", "#heroes");//corregir
+    window.history.replaceState(null, "", "#heroes"); //corregir
   }
 
   return (
@@ -60,9 +64,9 @@ function App() {
         activo={activo}
         onBuscar={buscar}
         texto={textoGrande}
-        alternarTexto={() => setTextoGrande((valor) => !valor)} 
+        alternarTexto={() => setTextoGrande((valor) => !valor)}
       />
-
+      <HeroSintonia {...datos} totalGeneros={generos.length} />
       <Footer {...datos} idioma={idioma} />
     </>
   );
