@@ -9,6 +9,7 @@ import HeroSintonia from "./components/HeroSintonia/HeroSintonia.jsx";
 import SeccionAlbumes from "./components/SeccionesAlbumes/SeccionesAlbumes.jsx";
 import SeccionGeneros from "./components/SeccionGeneros/SeccionGeneros.jsx";
 import PortadaAlbum from "./components/PortadaAlbum/PortadaAlbum.jsx"; 
+import InvitacionRegistro from "./components/InvitacionRegistro/InvitacionRegistro.jsx";
 import { useEffect, useState } from "react";
 
 function leerSeccion() {
@@ -100,6 +101,10 @@ function App() {
         genero={genero}
         setGenero={setGenero}
         filtrar={filtrar}
+      />
+      <InvitacionRegistro
+      {...datos}
+      abrirCuenta={abrirCuenta}
       />
       <Footer {...datos} idioma={idioma} />
     </>
