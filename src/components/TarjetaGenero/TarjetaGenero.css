@@ -1,0 +1,143 @@
+.tarjeta-genero {
+  position: relative;
+  min-height: 132px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 14px;
+  color: var(--fijo-negro);
+  text-align: left;
+  padding: 16px;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.tarjeta-genero span {
+  position: relative;
+  z-index: 1;
+  display: block;
+  align-self: start;
+  font: 700 20px "Syne", sans-serif;
+}
+
+.tarjeta-genero .portada-album {
+  position: absolute;
+  width: 92px;
+  height: 92px;
+  right: -8px;
+  bottom: -26px;
+  transform: rotate(22deg);
+  transition: transform 180ms ease;
+}
+
+.tarjeta-genero:hover .portada-album {
+  transform: rotate(12deg) translateY(-8px);
+}
+
+.tarjeta-genero[aria-pressed="true"] {
+  outline: 3px solid var(--texto-principal);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   FONDOS USANDO VARIABLES DE TOKENS.CSS CON FALLBACKS HEX
+   ========================================================================== */
+
+/* 1. Pop (Turquesa - Token 1) */
+.genero-0,
+.genero-gen_pop,
+.genero-pop {
+  background: var(--portada-3) !important;
+}
+
+/* 2. Indie (Naranja/Coral - Token 5) */
+.genero-1,
+.genero-gen_indie,
+.genero-indie {
+  background: var(--portada-2) !important;
+}
+
+/* 3. Rock (Morado / Lila - Token 6 o Token 2) */
+.genero-2,
+.genero-gen_rock,
+.genero-rock {
+  background: var(--portada-1, var(--portada-2)) !important;
+}
+
+/* 4. Electrónica (Azul - Token 4) */
+.genero-3,
+.genero-gen_electronica,
+.genero-electronica {
+  background: var(--portada-6) !important;
+}
+
+/* 5. Salsa (Rosa Fucsia - Token 2) */
+.genero-4,
+.genero-gen_salsa,
+.genero-salsa {
+  background: var(--portada-5) !important;
+}
+
+/* 6. Tropical (Amarillo - Token 3) */
+.genero-5,
+.genero-gen_tropical,
+.genero-tropical {
+  background: var(--portada-4) !important;
+}
+
+/* 7. Música Andina (Morado / Lila - Token 6) */
+.genero-6,
+.genero-gen_musica-andina,
+.genero-andina {
+  background: var(--portada-1) !important;
+}
+
+/* 8. Folk (Turquesa - Token 1) */
+.genero-7,
+.genero-gen_folk,
+.genero-folk {
+  background: var(--portada-3) !important;
+}
+
+/* 9. Lo-Fi (Morado Suave - Token 6) */
+.genero-8,
+.genero-gen_lo-fi,
+.genero-lofi {
+  background: var(--portada-6) !important;
+}
+
+/* 10. Jazz (Amarillo - Token 3) */
+.genero-9,
+.genero-gen_jazz,
+.genero-jazz {
+  background: var(--portada-4) !important;
+}
+
+/* 11. Instrumental (Naranja Oscuro) */
+.genero-10,
+.genero-gen_instrumental,
+.genero-instrumental {
+  background: var(--portada-2) !important;
+}
+
+/* 12. Urbano (Azul - Token 4) */
+.genero-11,
+.genero-gen_urbano,
+.genero-urbano {
+  background: var(--marca-primario) !important;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .tarjeta-genero {
+    min-height: 104px;
+    padding: 12px;
+    border-radius: 10px;
+  }
+  .tarjeta-genero span {
+    font-size: 16px;
+  }
+  .tarjeta-genero .portada-album {
+    width: 68px;
+    height: 68px;
+  }
+}

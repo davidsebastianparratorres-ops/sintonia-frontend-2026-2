@@ -5,7 +5,7 @@ export default function CollagePortadas({}) {
     <div className="collage-sintonia" aria-hidden="true">
       <PortadaAlbum className="album-principal" />
       <PortadaAlbum variante={4} className="album-superior" />
-      <PortadaAlbum variante={1} className="album-inferior" />
+      <PortadaAlbum variante={2} className="album-inferior" />
       <div className="nota-sintonia">
         <b>
           Sube la niebla
