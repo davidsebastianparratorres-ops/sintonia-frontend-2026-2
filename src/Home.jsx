@@ -3,7 +3,7 @@ import { useCatalogo } from "./hooks/useCatalogo.js";
 import { useGeneros } from "./hooks/useGeneros.js";
 import { useDetalle } from "./hooks/useDetalle.js";
 import { leerCookie } from "./services/cookies.js";
-import "./App.css";
+import "./Home.css";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import HeroSintonia from "./components/HeroSintonia/HeroSintonia.jsx";
@@ -18,7 +18,7 @@ function leerSeccion() {
   return window.location.hash.slice(1) || "inicio";
 }
 
-function App() {
+function Home() {
   // Idioma por defecto español
   const [idioma, setIdioma] = useState(() => {
     return leerCookie("idioma") === "en" ? "en" : "es";
@@ -119,4 +119,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
