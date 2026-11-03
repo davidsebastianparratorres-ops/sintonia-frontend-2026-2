@@ -2,14 +2,16 @@ import { useTextos } from "./hooks/useTextos.js";
 import { useCatalogo } from "./hooks/useCatalogo.js";
 import { useGeneros } from "./hooks/useGeneros.js";
 import { useDetalle } from "./hooks/useDetalle.js";
+import { leerCookie } from "./services/cookies.js";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import HeroSintonia from "./components/HeroSintonia/HeroSintonia.jsx";
 import SeccionAlbumes from "./components/SeccionesAlbumes/SeccionesAlbumes.jsx";
 import SeccionGeneros from "./components/SeccionGeneros/SeccionGeneros.jsx";
-import PortadaAlbum from "./components/PortadaAlbum/PortadaAlbum.jsx"; 
+import PortadaAlbum from "./components/PortadaAlbum/PortadaAlbum.jsx";
 import InvitacionRegistro from "./components/InvitacionRegistro/InvitacionRegistro.jsx";
+import BannerCookies from "./components/BannerCookies/BannerCookies.jsx";
 import { useEffect, useState } from "react";
 
 function leerSeccion() {
@@ -18,14 +20,22 @@ function leerSeccion() {
 
 function App() {
   // Idioma por defecto español
-  const [idioma, setIdioma] = useState("es");
+  const [idioma, setIdioma] = useState(() => {
+    return leerCookie("idioma") === "en" ? "en" : "es";
+  });
   const [sesion, setSesion] = useState("invitado");
   const [activo, setActivo] = useState(leerSeccion);
   const [consulta, setConsulta] = useState("");
   const [textoGrande, setTextoGrande] = useState(false);
   const datos = useTextos(idioma);
   const { detalle, setDetalle, abrirCuenta } = useDetalle(idioma);
-  const { genero, setGenero, visibles, cargando: cargandoAlbumes, filtrar } = useCatalogo();
+  const {
+    genero,
+    setGenero,
+    visibles,
+    cargando: cargandoAlbumes,
+    filtrar,
+  } = useCatalogo();
   const { generos } = useGeneros();
 
   const ingles = idioma === "en";
@@ -102,10 +112,8 @@ function App() {
         setGenero={setGenero}
         filtrar={filtrar}
       />
-      <InvitacionRegistro
-      {...datos}
-      abrirCuenta={abrirCuenta}
-      />
+      <InvitacionRegistro {...datos} abrirCuenta={abrirCuenta} />
+      <BannerCookies {...datos} idioma={idioma} />
       <Footer {...datos} idioma={idioma} />
     </>
   );
