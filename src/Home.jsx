@@ -1,7 +1,7 @@
 import { useTextos } from "./hooks/useTextos.js";
 import { useCatalogo } from "./hooks/useCatalogo.js";
-import { useGeneros } from "./hooks/useGeneros.js";
 import { useDetalle } from "./hooks/useDetalle.js";
+import { useGeneros } from "./hooks/useGeneros.js";
 import { leerCookie } from "./services/cookies.js";
 import "./Home.css";
 import Navbar from "./components/Navbar/Navbar.jsx";
@@ -12,6 +12,7 @@ import SeccionGeneros from "./components/SeccionGeneros/SeccionGeneros.jsx";
 import PortadaAlbum from "./components/PortadaAlbum/PortadaAlbum.jsx";
 import InvitacionRegistro from "./components/InvitacionRegistro/InvitacionRegistro.jsx";
 import BannerCookies from "./components/BannerCookies/BannerCookies.jsx";
+import Catalogo from "./pages/Catalog/Catalog.jsx";
 import { useEffect, useState } from "react";
 
 function leerSeccion() {
@@ -23,13 +24,12 @@ function Home() {
   const [idioma, setIdioma] = useState(() => {
     return leerCookie("idioma") === "en" ? "en" : "es";
   });
-  const [sesion, setSesion] = useState("invitado");
   const [activo, setActivo] = useState(leerSeccion);
-  const [consulta, setConsulta] = useState("");
   const [textoGrande, setTextoGrande] = useState(false);
   const datos = useTextos(idioma);
   const { detalle, setDetalle, abrirCuenta } = useDetalle(idioma);
   const {
+    albumes,
     genero,
     setGenero,
     visibles,
@@ -95,24 +95,31 @@ function Home() {
         texto={textoGrande}
         alternarTexto={() => setTextoGrande((valor) => !valor)}
       />
-      <HeroSintonia {...datos} totalGeneros={generos.length} />
-      <SeccionAlbumes
-        {...datos}
-        en={ingles}
-        visibles={visibles}
-        genero={genero}
-        generos={generos}
-        setGenero={setGenero}
-        onSeleccionar={abrirAlbum}
-      />
-      <SeccionGeneros
-        {...datos}
-        generos={generos}
-        genero={genero}
-        setGenero={setGenero}
-        filtrar={filtrar}
-      />
-      <InvitacionRegistro {...datos} abrirCuenta={abrirCuenta} />
+      {activo === "catalogo" ? (
+        <Catalogo datos={datos} generos={generos} albumes={albumes} onSeleccionarAlbum={abrirAlbum} />
+      ) : (
+        <>
+          <HeroSintonia {...datos} totalGeneros={generos.length} />
+          <SeccionAlbumes
+            {...datos}
+            en={ingles}
+            visibles={visibles}
+            genero={genero}
+            generos={generos}
+            setGenero={setGenero}
+            onSeleccionar={abrirAlbum}
+            limite={6}
+          />
+          <SeccionGeneros
+            {...datos}
+            generos={generos}
+            genero={genero}
+            setGenero={setGenero}
+            filtrar={filtrar}
+          />
+          <InvitacionRegistro {...datos} abrirCuenta={abrirCuenta} />
+        </>
+      )}
       <BannerCookies {...datos} idioma={idioma} />
       <Footer {...datos} idioma={idioma} />
     </>
