@@ -23,7 +23,7 @@ export default function PortadaAlbum({ variante = 0, className = "" }) {
             "#4b86fa", // 3: Electronica
             "#ff655c", // 4: Indie
             "#f8b946", // 5: Jazz
-            "#e65025", // 6: Instrumental
+            "#ff6b5e", // 6: Instrumental
             "#0c0b12", // 7: Musica Andina
             "#0c0b12", // 8: Salsa
             "#f8b946", // 9: Tropical

@@ -1,21 +1,20 @@
 import Flecha from "../Flecha/Flecha.jsx";
 import TarjetaAlbum from "../TarjetaAlbum/TarjetaAlbum.jsx";
 import "./SeccionesAlbumes.css";
+
 export default function SeccionAlbumes({
   textos,
-  visibles,
-  genero,
-  generos = [],
-  en,
-  setGenero,
+  visibles = [],
+  titulo,          // Recibe el título ya procesado (ideal para el Catálogo o Inicio)
+  limite,          // Permite controlar cuántos mostrar (en catálogo se muestran todos, en inicio 6)
+  limiteMovil,
   onSeleccionar,
 }) {
   const destacados = textos?.paginas?.inicioPublico?.destacados;
-  const generoSeleccionado = generos.find((item) => {
-    const id = typeof item === "object" ? item?.id : item;
-    return id === genero;
-  });
-  const tituloGenero = generoSeleccionado?.nombre || genero;
+  const tituloFinal = titulo || destacados?.titulo || "Álbumes destacados";
+
+  // Si se pasa un límite se aplica, de lo contrario muestra todos los visibles (útil para el catálogo)
+  const albumesAMostrar = limite ? visibles.slice(0, limite) : visibles;
 
   return (
     <section
@@ -24,19 +23,15 @@ export default function SeccionAlbumes({
       aria-labelledby="albumes-titulo"
     >
       <div className="titulo-seccion">
-        <h2 id="albumes-titulo">{genero ? tituloGenero : destacados?.titulo}</h2>
-        {genero ? (
-          <button className="enlace-home" onClick={() => setGenero(null)}>
-            {en ? "View all" : "Ver todos"} <Flecha />
-          </button>
-        ) : (
-          <a className="enlace-home" href="#generos">
-            {destacados?.enlaces?.descubrirMas} <Flecha />
-          </a>
-        )}
+        <h2 id="albumes-titulo">{tituloFinal}</h2>
       </div>
-      <div className="albumes-grid">
-        {visibles.slice(0,6).map((album) => (
+
+      <div
+        className={`albumes-grid${
+          limiteMovil === 2 ? " albumes-grid-limite-movil" : ""
+        }`}
+      >
+        {albumesAMostrar.map((album) => (
           <TarjetaAlbum
             key={album.id || album.nombre}
             album={album}
@@ -44,11 +39,10 @@ export default function SeccionAlbumes({
           />
         ))}
       </div>
-      {!visibles.length && (
-        <p role="status">
-          {en
-            ? "No albums in this genre yet."
-            : "Todavía no hay álbumes de este género en la selección semanal."}
+
+      {visibles.length === 0 && (
+        <p role="status" className="texto-vacio">
+          {textos?.paginas?.catalogo?.vacio?.texto || "No hay álbumes disponibles en esta selección."}
         </p>
       )}
     </section>
