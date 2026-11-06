@@ -4,7 +4,7 @@ import Logo from "../../assets/logo.svg";
 // Destinos de cada enlace. Las claves coinciden con las de la API (footer.columnas.*.enlaces)
 const DESTINOS = {
   inicio: "/inicio",
-  catalogo: "/catalogo",
+  catalogo: "#catalogo",
   ingresar: "#ingresar",
   crearCuenta: "#crear-cuenta",
   terminos: "#terminos",
