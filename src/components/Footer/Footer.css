@@ -9,6 +9,7 @@
   line-height: 20px;
 }
 
+
 .footer a {
   text-decoration: none;
 }
@@ -22,6 +23,9 @@
   width: min(100% - 2rem, 80rem);
   margin-inline: auto;
   padding-block: 24px;
+}
+.footer-interior > *{
+  margin-inline: 24px; 
 }
 
 .footer-superior {
@@ -43,9 +47,10 @@
 }
 .footer-lema {
   margin: 0;
-  color: var(--texto-principal);
+  color: var(--texto-secundario);
   font-weight: 400;
 }
+
 
 .footer-columnas {
   display: flex;
@@ -54,7 +59,7 @@
 }
 .footer-titulo {
   margin: 0 0 16px;
-  color: var(--texto-secundario);
+  color: var(--texto-terciario);
   font-size: 11px;
   font-weight: 600;
   line-height: 16px;
