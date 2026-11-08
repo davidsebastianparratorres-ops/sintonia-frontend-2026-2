@@ -8,6 +8,7 @@ const DESTINOS = {
   ingresar: "#ingresar",
   crearCuenta: "#crear-cuenta",
   terminos: "#terminos",
+  accesibilidad: "#accesibilidad"
 };
 
 const Footer = ({ textos, idioma }) => {

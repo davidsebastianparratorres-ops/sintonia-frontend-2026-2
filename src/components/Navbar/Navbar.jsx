@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import "./Navbar.css";
 import Icono from "../Icono";
 import Logo from "../../assets/logo.svg";
+import { PanelAccesibilidad } from "../PanelAccesibilidad/PanelAccesibilidad.jsx";
 const DESTINOS_INVITADO = {
   inicio: "/inicio",
   catalogo: "#catalogo",
@@ -17,12 +19,13 @@ const Navbar = ({
   recargar,
   idioma,
   onBuscar,
-  textoGrande,
-  alternarTexto,
 }) => {
   const [abierto, setAbierto] = useState(false); //Saber si el toogle de mobile esta abierto
+  const [accesibilidadAbierta, setAccesibilidadAbierta] = useState(false);
+  const [posicionPanel, setPosicionPanel] = useState({ top: 80, right: 16 });
   const [busqueda, setBusqueda] = useState(""); //sin valor a buscar
   const botonMenu = useRef(null);
+  const botonAccesibilidad = useRef(null);
   const campoBusqueda = useRef(null);
   const nav = textos?.navbar;
   const ingles = idioma === "en"; //Toma el valor de la variable idioma solo si es ingles
@@ -43,15 +46,40 @@ const Navbar = ({
 
   useEffect(() => {
     function cerrarConEscape(evento) {
-      if (!abierto) return;
-      if (evento.key === "Escape" && abierto) {
+      if (evento.key !== "Escape") return;
+      if (accesibilidadAbierta) {
+        setAccesibilidadAbierta(false);
+        botonAccesibilidad.current?.focus();
+      } else if (abierto) {
         setAbierto(false);
         botonMenu.current?.focus();
       }
     }
     document.addEventListener("keydown", cerrarConEscape); //Escucha las teclas en todo el documento
     return () => document.removeEventListener("keydown", cerrarConEscape);
-  }, [abierto]);
+  }, [abierto, accesibilidadAbierta]);
+
+  useEffect(() => {
+    if (!accesibilidadAbierta) return;
+
+    function actualizarPosicionPanel() {
+      const boton = botonAccesibilidad.current;
+      if (!boton) return;
+      const rect = boton.getBoundingClientRect();
+      setPosicionPanel({
+        top: rect.bottom + 8,
+        right: window.innerWidth - rect.right,
+      });
+    }
+
+    actualizarPosicionPanel();
+    window.addEventListener("resize", actualizarPosicionPanel);
+    window.addEventListener("scroll", actualizarPosicionPanel, true);
+    return () => {
+      window.removeEventListener("resize", actualizarPosicionPanel);
+      window.removeEventListener("scroll", actualizarPosicionPanel, true);
+    };
+  }, [accesibilidadAbierta]);
 
   function abrirBusqueda(evento) {
     setAbierto(true);
@@ -163,18 +191,7 @@ const Navbar = ({
           )}
 
           <div className="navbar-utilidades">
-            <button
-              className="navbar-accesibilidad"
-              type="button"
-              aria-label={ingles ? "Enlarge text" : "Aumentar texto"}
-              aria-pressed={textoGrande}
-              onClick={alternarTexto}
-            >
-              <span>{textos?.menuMovil?.secciones.accesibilidad}</span>
-              <div className="navbar-accesibilidad-movil"><Icono nombre="accesibilidad" /></div>
-              
-
-            </button>
+            
             <div className="navbar-utilidad-fila">
               <span>{textos?.menuMovil?.secciones?.idioma}</span>
                <div className="navbar-idiomas-movil">
@@ -201,6 +218,23 @@ const Navbar = ({
                 
 
             </div>
+            <button
+              ref={botonAccesibilidad}
+              className="navbar-accesibilidad"
+              type="button"
+              aria-label={
+                ingles ? "Accessibility options" : "Opciones de accesibilidad"
+              }
+              aria-expanded={accesibilidadAbierta}
+              aria-controls="panel-accesibilidad"
+              onClick={() =>
+                setAccesibilidadAbierta((valor) => !valor)
+              }
+            >
+              <span>{textos?.menuMovil?.secciones.accesibilidad}</span>
+              <div className="navbar-accesibilidad-movil"><Icono nombre="accesibilidad" /></div>
+              
+            </button>
           </div>
           <div className="navbar-sesion">
             <button
@@ -221,6 +255,25 @@ const Navbar = ({
           </div>
         </div>
       </nav>
+      {accesibilidadAbierta &&
+        createPortal(
+          <div
+            className="navbar-panel-accesibilidad"
+            style={{
+              "--panel-top": `${posicionPanel.top}px`,
+              "--panel-right": `${posicionPanel.right}px`,
+            }}
+          >
+            <PanelAccesibilidad
+              textos={textos}
+              onClose={() => {
+                setAccesibilidadAbierta(false);
+                botonAccesibilidad.current?.focus();
+              }}
+            />
+          </div>,
+          document.body,
+        )}
     </header>
   );
 };

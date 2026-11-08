@@ -25,7 +25,6 @@ function Home() {
     return leerCookie("idioma") === "en" ? "en" : "es";
   });
   const [activo, setActivo] = useState(leerSeccion);
-  const [textoGrande, setTextoGrande] = useState(false);
   const datos = useTextos(idioma);
   const { detalle, setDetalle, abrirCuenta } = useDetalle(idioma);
   const {
@@ -57,13 +56,6 @@ function Home() {
     document.documentElement.lang = idioma;
   }, [idioma]);
 
-  useEffect(() => {
-    document.documentElement.style.fontSize = textoGrande ? "112%" : "";
-    return () => {
-      document.documentElement.style.fontSize = "";
-    };
-  }, [textoGrande]);
-
   function buscar(valor) {
     setConsulta(valor);
     setActivo("heroes");
@@ -92,8 +84,6 @@ function Home() {
         cambiarIdioma={setIdioma}
         activo={activo}
         onBuscar={buscar}
-        texto={textoGrande}
-        alternarTexto={() => setTextoGrande((valor) => !valor)}
       />
       {activo === "catalogo" ? (
         <Catalogo datos={datos} generos={generos} albumes={albumes} onSeleccionarAlbum={abrirAlbum} />
