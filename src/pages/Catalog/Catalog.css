@@ -7,12 +7,15 @@
   color: var(--texto-principal);
   font-family: var(--fuente-inter);
   border-radius: 10px;
-  margin-bottom: 8px;
+  margin: 28px;
+}
+
+.pagina-catalogo > .ancho-home {
+  width: auto;
 }
 
 /* 1. Encabezado dinámico */
 .encabezado-catalogo {
-  padding-inline: 20px;  
   margin-bottom: var(--espacio-6);
 }
 
@@ -75,12 +78,13 @@
 
 .grid-artistas {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--espacio-4);
+  grid-template-columns: repeat(3, max-content);
+  gap: 16px;
 }
 
 .tarjeta-artista {
   display: flex;
+  width: 114px;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--espacio-2);
@@ -225,6 +229,11 @@
   .pagina-catalogo {
     padding-block: var(--espacio-8) var(--espacio-16);
     background: var(--fondo-superficie);
+    width: auto;
+    
+  }
+  .pagina-catalogo > * {
+  margin-inline: 28px;
   }
 
   .encabezado-catalogo h1 {
@@ -278,13 +287,23 @@
   }
 }
 
+@media (max-width: 640px) {
+  .grid-artistas {
+    column-gap: 16px;
+    row-gap: 16px;
+  }
+}
+
 @media (min-width: 1000px) {
   .pagina-catalogo {
     padding-block: var(--espacio-12) var(--espacio-16);
   }
 
+  .pagina-catalogo > * {
+  margin-inline: 28px;
+  }
+
   .encabezado-catalogo {
-    padding-inline: 40px;
     margin-bottom: var(--espacio-8);
   }
 
