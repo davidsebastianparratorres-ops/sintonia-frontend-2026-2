@@ -25,7 +25,7 @@ export default function HeroSintonia({ textos, totalGeneros }) {
           >
             {hero?.botones?.crearCuentaGratis}
           </button>
-          <a className="boton-home secundario" href="#generos">
+          <a className="boton-home secundario" href="#catalogo">
             {hero?.botones?.explorarCatalogo}
           </a>
         </div>

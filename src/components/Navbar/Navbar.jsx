@@ -28,13 +28,7 @@ const Navbar = ({
   const botonAccesibilidad = useRef(null);
   const campoBusqueda = useRef(null);
   const nav = textos?.navbar;
-  const ingles = idioma === "en"; //Toma el valor de la variable idioma solo si es ingles
-  /* const etiquetaFavoritos =
-    nav?.botones?.favoritos ?? (ingles ? "Favorites" : "Favoritos");
-  const etiquetaBusqueda =
-    nav?.buscador?.aria ?? (ingles ? "Search" : "Buscar");
-  const botonBusqueda = nav?.buscador?.boton ?? (ingles ? "Search" : "Buscar"); */
-
+  const ingles = idioma === "en"; 
   const abrir =
     textos?.menuMovil.abrir ?? (ingles ? "Open menu" : "Abrir menu");
   const cerrar =
@@ -110,25 +104,6 @@ const Navbar = ({
         </a>
 
         <div className="navbar-movil-acciones">
-          {/* <button
-            type="button"
-            className="navbar-icono"
-            aria-label={etiquetaBusqueda}
-            onClick={abrirBusqueda}
-          >
-            <Icono nombre="buscar" />
-          </button> */}
-
-          {/* {nav && (
-            <a
-              className="navbar-icono"
-              href="#favoritos"
-              aria-label={etiquetaFavoritos}
-              onClick={() => setAbierto(false)}
-            >
-              <Icono nombre="favoritos" />
-            </a>
-          )} */}
           {!abierto && (
             <button type="button" className="navbar-ingresar-movil ">
               {nav?.botones?.invitado?.ingresar}
@@ -183,10 +158,7 @@ const Navbar = ({
                   </li>
                 ))}
               </ul>
-              {/* <form className="navbar-buscador" role="search" aria-label={etiquetaBusqueda} onSubmit={buscar}>
-              <button type="submit" aria-label={botonBusqueda}><Icono nombre="buscar" /></button>
-              <input ref={campoBusqueda} type="search" value={busqueda} onChange={(evento) => setBusqueda(evento.target.value)} placeholder={nav.buscador.placeholder} aria-label={etiquetaBusqueda} required />
-            </form> */}
+  
             </>
           )}
 

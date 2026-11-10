@@ -1,16 +1,18 @@
-import { colorPortada } from "../../utils/portada.js";
+// src/components/TarjetaArtista/TarjetaArtista.jsx
 import "./TarjetaArtista.css";
 
 export default function TarjetaArtista({ artista, textos }) {
   const etiqueta =
     textos?.paginas?.catalogo?.genero?.artistas?.etiqueta || "Artista";
-  const fondo = artista.portada?.colores?.[0];
+
+  // Tomamos el color hexadecimal directo que manda la API (portada.fondo)
+  const colorFondo = artista.portada?.fondo;
 
   return (
     <article className="tarjeta-artista">
       <div
         className="avatar-artista"
-        style={fondo ? { backgroundColor: colorPortada(fondo) } : undefined}
+        style={colorFondo ? { backgroundColor: colorFondo } : undefined}
         aria-hidden="true"
       />
       <h3>{artista.nombre}</h3>
