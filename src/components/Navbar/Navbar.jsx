@@ -5,7 +5,7 @@ import Icono from "../Icono";
 import Logo from "../../assets/logo.svg";
 import { PanelAccesibilidad } from "../PanelAccesibilidad/PanelAccesibilidad.jsx";
 const DESTINOS_INVITADO = {
-  inicio: "/inicio",
+  inicio: "#inicio",
   catalogo: "#catalogo",
 };
 
