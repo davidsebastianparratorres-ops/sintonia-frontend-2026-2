@@ -187,3 +187,41 @@ select {
 .sintonia h3 {
   font-family: var(--fuente-syne);
 }
+
+/* src/styles/global.css */
+
+/* 1. Alto Contraste */
+html.high-contrast {
+  filter: contrast(125%);
+}
+
+html.high-contrast body {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* 2. Reducir Movimiento */
+html.reduce-motion *,
+html.reduce-motion *::before,
+html.reduce-motion *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+/* 3. Subrayar Enlaces */
+html.underline-links a {
+  text-decoration: underline !important;
+  text-underline-offset: 4px !important;
+}
+
+/* 4. Espaciado de Lectura */
+html.reading-spacing body {
+  line-height: 1.9 !important;
+  letter-spacing: 0.05em !important;
+}
+
+html.reading-spacing p,
+html.reading-spacing span {
+  word-spacing: 0.16em !important;
+}
