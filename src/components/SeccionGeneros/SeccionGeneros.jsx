@@ -2,40 +2,49 @@ import Flecha from "../Flecha/Flecha.jsx";
 import TarjetaGenero from "../TarjetaGenero/TarjetaGenero.jsx";
 import "./SeccionGeneros.css";
 
+function irAGenero(id) {
+  const url = new URL(window.location.href);
+  url.searchParams.set("genero", id);
+  url.hash = "catalogo";
+  window.history.pushState({}, "", url);
+  // pushState no dispara hashchange, y Home escucha ese evento
+  window.dispatchEvent(new HashChangeEvent("hashchange"));
+}
+
+function limpiarGenero() {
+  const url = new URL(window.location.href);
+  url.searchParams.delete("genero");
+  window.history.replaceState({}, "", url);
+}
+
 export default function SeccionGeneros({
   textos,
   generos = [],
   genero,
-  setGenero,
   filtrar,
-  esCatalogo = false, // Identifica si estamos en la página de catálogo
+  esCatalogo = false,
 }) {
-  // Extraemos los datos de la API según la ruta correspondiente de cada página
   const datosSeccion = esCatalogo
     ? textos?.paginas?.catalogo?.generos
     : textos?.paginas?.inicioPublico?.generos;
 
   const titulo = datosSeccion?.titulo;
-  const textoEnlace = datosSeccion?.enlaces?.verCatalogo; // Solo existe en inicioPublico
+  const textoEnlace = datosSeccion?.enlaces?.verCatalogo;
+
+  // En catálogo se alterna el género; en inicio se navega al catálogo
+  const alSeleccionar = esCatalogo ? filtrar : irAGenero;
 
   return (
     <section
-      className={`ancho-home seccion-generos${
-        esCatalogo ? " seccion-generos-catalogo" : ""
-      }`}
+      className={`ancho-home seccion-generos${esCatalogo ? " seccion-generos-catalogo" : ""}`}
       id="generos"
       aria-labelledby="generos-titulo"
     >
       <div className="titulo-seccion">
         <h2 id="generos-titulo">{titulo}</h2>
 
-        {/* El enlace de la flecha solo se pinta si existe en la API para esa sección (Inicio) */}
         {!esCatalogo && textoEnlace && (
-          <a
-            className="enlace-home"
-            href="#catalogo"
-            onClick={() => setGenero(null)}
-          >
+          <a className="enlace-home" href="#catalogo" onClick={limpiarGenero}>
             {textoEnlace} <Flecha />
           </a>
         )}
@@ -51,9 +60,9 @@ export default function SeccionGeneros({
               key={idGen || i}
               nombre={nombreGen}
               idGenero={idGen}
-              i={i}
-              genero={genero}
-              filtrar={filtrar}
+              datosGenero={itemGenero}
+              genero={esCatalogo ? genero : null}
+              filtrar={alSeleccionar}
             />
           );
         })}

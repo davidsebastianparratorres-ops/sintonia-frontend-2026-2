@@ -24,7 +24,6 @@ export function useGenero(id) {
       })
       .then((json) => {
         const datos = json?.datos ?? json;
-        console.log("generos/" + id, datos); // <- mira aquí la forma real
         setDetalle(datos);
       })
       .catch((e) => {

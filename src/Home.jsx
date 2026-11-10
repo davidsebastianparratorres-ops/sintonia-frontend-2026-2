@@ -27,14 +27,7 @@ function Home() {
   const [activo, setActivo] = useState(leerSeccion);
   const datos = useTextos(idioma);
   const { detalle, setDetalle, abrirCuenta } = useDetalle(idioma);
-  const {
-    albumes,
-    genero,
-    setGenero,
-    visibles,
-    cargando: cargandoAlbumes,
-    filtrar,
-  } = useCatalogo();
+  const {albumes, cargando: cargandoAlbumes, error: errorAlbumes} = useCatalogo();
   const { generos } = useGeneros();
 
   const ingles = idioma === "en";
@@ -46,7 +39,7 @@ function Home() {
   useEffect(() => {
     function actualizar() {
       setActivo(leerSeccion());
-      setConsulta("");
+      
     }
     window.addEventListener("hashchange", actualizar);
     return () => window.removeEventListener("hashchange", actualizar);
@@ -55,12 +48,6 @@ function Home() {
   useEffect(() => {
     document.documentElement.lang = idioma;
   }, [idioma]);
-
-  function buscar(valor) {
-    setConsulta(valor);
-    setActivo("heroes");
-    window.history.replaceState(null, "", "#heroes");
-  }
 
   function abrirAlbum(album) {
     const tituloAlbum = album.titulo || album.nombre;
@@ -83,7 +70,7 @@ function Home() {
         idioma={idioma}
         cambiarIdioma={setIdioma}
         activo={activo}
-        onBuscar={buscar}
+        
       />
       {activo === "catalogo" ? (
         <Catalogo datos={datos} generos={generos} albumes={albumes} onSeleccionarAlbum={abrirAlbum} />
@@ -92,20 +79,14 @@ function Home() {
           <HeroSintonia {...datos} totalGeneros={generos.length} />
           <SeccionAlbumes
             {...datos}
-            en={ingles}
-            visibles={visibles}
-            genero={genero}
-            generos={generos}
-            setGenero={setGenero}
+            albumes={albumes}
+            error={errorAlbumes}
+            filaHorizontalMovil
             onSeleccionar={abrirAlbum}
-            limite={6}
           />
           <SeccionGeneros
             {...datos}
             generos={generos}
-            genero={genero}
-            setGenero={setGenero}
-            filtrar={filtrar}
           />
           <InvitacionRegistro {...datos} abrirCuenta={abrirCuenta} />
         </>

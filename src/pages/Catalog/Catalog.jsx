@@ -5,12 +5,12 @@ import SeccionAlbumes from "../../components/SeccionesAlbumes/SeccionesAlbumes.j
 import TarjetaArtista from "../../components/TarjetaArtista/TarjetaArtista.jsx";
 import ListaCanciones from "../../components/ListaCanciones/ListaCanciones.jsx";
 import { useGenero } from "../../hooks/useGenero.js";
+import { useCatalogo } from "../../hooks/useCatalogo.js";
 import "./Catalog.css";
 
 export default function Catalogo({
   datos,
   generos = [],
-  albumes = [],
   onSeleccionarAlbum,
 }) {
   const [generoActivo, setGeneroActivo] = useState(
@@ -25,6 +25,12 @@ export default function Catalogo({
   }, [generoActivo]);
 
   const { detalle, cargando, error } = useGenero(generoActivo);
+  const {
+    albumes: albumesGenerales,
+    cargando: cargandoGenerales,
+    error: errorGenerales,
+  } = useCatalogo({ limite: 24 });
+
   const tCat = datos?.textos?.paginas?.catalogo;
 
   // Mientras carga el detalle, usamos lo básico que ya viene en la lista de géneros
@@ -32,7 +38,7 @@ export default function Catalogo({
     detalle ?? generos.find((g) => g?.id === generoActivo) ?? null;
 
   const artistas = detalle?.artistas ?? [];
-  const albumesVista = generoActivo ? (detalle?.albumes ?? []) : albumes;
+  const albumesGenero = detalle?.albumes ?? [];
   const pistas = [...(detalle?.pistas ?? [])].sort(
     (a, b) => (b.reproducciones ?? 0) - (a.reproducciones ?? 0),
   );
@@ -45,7 +51,7 @@ export default function Catalogo({
         "{genero}",
         generoSeleccionado?.nombre ?? "",
       )
-    : tCat?.destacados?.titulo || "Álbumes destacados";
+    : tCat?.destacados?.titulo;
 
   return (
     <main className="pagina-catalogo ancho-home">
@@ -58,7 +64,6 @@ export default function Catalogo({
         {...datos}
         generos={generos}
         genero={generoActivo}
-        setGenero={alternarGenero}
         filtrar={alternarGenero}
         esCatalogo
       />
@@ -84,24 +89,35 @@ export default function Catalogo({
         </section>
       )}
 
-      {albumesVista.length > 0 ? (
+      {generoActivo ? (
+        albumesGenero.length > 0 ? (
+          <SeccionAlbumes
+            textos={datos?.textos}
+            albumes={albumesGenero}
+            titulo={tituloAlbumes}
+            filaHorizontal
+            mostrarEnlaceDescubrirMas={false}
+            onSeleccionar={onSeleccionarAlbum}
+          />
+        ) : (
+          !cargando &&
+          !error && (
+            <div className="catalogo-vacio" role="status">
+              <h3>{tCat?.vacio?.titulo}</h3>
+              <p>{tCat?.vacio?.texto}</p>
+            </div>
+          )
+        )
+      ) : (
         <SeccionAlbumes
           textos={datos?.textos}
-          visibles={albumesVista}
+          albumes={albumesGenerales}
+          cargando={cargandoGenerales}
+          error={errorGenerales}
           titulo={tituloAlbumes}
-          limite={generoActivo ? undefined : 6}
-          limiteMovil={generoActivo ? undefined : 2}
+          filaHorizontal
           onSeleccionar={onSeleccionarAlbum}
         />
-      ) : (
-        generoActivo &&
-        !cargando &&
-        !error && (
-          <div className="catalogo-vacio" role="status">
-            <h3>{tCat?.vacio?.titulo}</h3>
-            <p>{tCat?.vacio?.texto}</p>
-          </div>
-        )
       )}
 
       {generoActivo && pistas.length > 0 && (

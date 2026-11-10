@@ -1,7 +1,7 @@
 
 export default function EncabezadoCatalogo({ generoSeleccionado, textos }) {
   const tCat = textos?.paginas?.catalogo;
-  const tituloMovil = textos?.navbar?.enlaces?.catalogo || "Catálogo";
+  const tituloMovil = textos?.navbar?.enlaces?.catalogo;
 
   return (
     <header className="encabezado-catalogo titular-h1">

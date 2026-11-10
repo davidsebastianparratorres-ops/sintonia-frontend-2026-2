@@ -17,6 +17,10 @@
     gap: 12px;
   }
 
+  .seccion-generos:not(.seccion-generos-catalogo) .generos-grid > :nth-child(n + 5) {
+    display: none;
+  }
+
   .seccion-generos-catalogo .generos-grid > :nth-child(n + 9) {
     display: none;
   }
