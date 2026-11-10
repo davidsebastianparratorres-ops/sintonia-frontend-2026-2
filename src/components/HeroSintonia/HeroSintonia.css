@@ -18,7 +18,7 @@
 .hero-sintonia h1 {
   margin: 28px 0;
   font-family: var(--fuente-syne);
-  font-size: clamp(64px, 7.5vw, 108px);
+  font-size: clamp(64px, 7.5vw, 120px);
   font-weight: 800;
   line-height: 0.98;
   letter-spacing: -0.035em;

@@ -7,7 +7,8 @@
   color: var(--texto-principal);
   font-family: var(--fuente-inter);
   border-radius: 10px;
-  margin: 28px;
+  width: calc(100% - 32px);
+  margin-inline: auto;
 }
 
 .pagina-catalogo > .ancho-home {
@@ -229,11 +230,8 @@
   .pagina-catalogo {
     padding-block: var(--espacio-8) var(--espacio-16);
     background: var(--fondo-superficie);
-    width: auto;
-    
-  }
-  .pagina-catalogo > * {
-  margin-inline: 28px;
+    width: min(1280px, calc(100% - 160px));
+    margin-inline: auto;
   }
 
   .encabezado-catalogo h1 {
@@ -297,10 +295,6 @@
 @media (min-width: 1000px) {
   .pagina-catalogo {
     padding-block: var(--espacio-12) var(--espacio-16);
-  }
-
-  .pagina-catalogo > * {
-  margin-inline: 28px;
   }
 
   .encabezado-catalogo {

@@ -85,7 +85,7 @@ select {
   scroll-margin-top: 24px;
 }
 .ancho-home {
-  width: min(1280px, calc(100% - 80px));
+  width: min(1280px, calc(100% - 160px));
   margin-inline: auto;
 }
 .boton-home {
@@ -153,7 +153,7 @@ select {
 }
 @media (max-width: 640px) {
   .ancho-home {
-    width: calc(100% - 40px);
+    width: calc(100% - 32px);
   }
 }
 @media (max-width: 640px) {

@@ -30,7 +30,8 @@
 
 .navbar-interior {
   width: min(100% - 2rem, 80rem);
-  min-height: 64px;
+  min-height: 60px;
+  height: 60px;
   margin-inline: auto;
   display: flex;
   flex-wrap: wrap;
@@ -376,6 +377,7 @@
     border: transparent;
   }
   .navbar-interior {
+    height: 72px;
     min-height: 72px;
     flex-wrap: nowrap;
     gap: 28px;
