@@ -75,18 +75,6 @@ const Navbar = ({
     };
   }, [accesibilidadAbierta]);
 
-  function abrirBusqueda(evento) {
-    setAbierto(true);
-    requestAnimationFrame(() => campoBusqueda.current?.focus());
-  }
-
-  function buscar(evento) {
-    evento.preventDefault(); // cancelar la accion que el navegador haria por defecto antes ese evento
-    const consulta = busqueda.trim();
-    if (!consulta) return;
-    onBuscar(consulta);
-    setAbierto(false);
-  }
 
   return (
     <header className="navbar ">

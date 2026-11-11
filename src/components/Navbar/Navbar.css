@@ -378,7 +378,7 @@
     border: transparent;
   }
   .navbar-interior {
-    height: 72px;
+    height: 72px; 
     min-height: 72px;
     flex-wrap: nowrap;
     gap: 28px;

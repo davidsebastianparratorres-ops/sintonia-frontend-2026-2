@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-
-const API = "https://yanethm-sintonia-api.fly.dev/api/v1";
+import API_BASE_URL from "../config/api";
 
 export function useGeneros() {
   const [generos, setGeneros] = useState([]);
@@ -12,7 +11,7 @@ export function useGeneros() {
 
     async function cargar() {
       try {
-        const respuesta = await fetch(`${API}/generos`);
+        const respuesta = await fetch(`${API_BASE_URL}/generos`);
         if (!respuesta.ok) throw new Error(respuesta.status);
         const json = await respuesta.json();
         if (activo) setGeneros(json.datos ?? []);

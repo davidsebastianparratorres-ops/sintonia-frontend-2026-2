@@ -1,7 +1,6 @@
 // hooks/useGenero.js
 import { useEffect, useState } from "react";
-
-const API = "https://yanethm-sintonia-api.fly.dev/api/v1";
+import API_BASE_URL from "../config/api";
 
 export function useGenero(id) {
   const [detalle, setDetalle] = useState(null);
@@ -17,7 +16,7 @@ export function useGenero(id) {
     setCargando(true);
     setError(false);
 
-    fetch(`${API}/generos/${id}`, { signal: controlador.signal })
+    fetch(`${API_BASE_URL}/generos/${id}`, { signal: controlador.signal })
       .then((r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();

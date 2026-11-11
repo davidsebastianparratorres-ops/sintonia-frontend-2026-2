@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-
-const API = "https://yanethm-sintonia-api.fly.dev/api/v1";
+import API_BASE_URL from "../config/api";
 
 export function useCatalogo({ orden = "populares", limite = 6 } = {}) {
   const [albumes, setAlbumes] = useState([]);
@@ -15,7 +14,7 @@ export function useCatalogo({ orden = "populares", limite = 6 } = {}) {
       setError(false);
       try {
         const params = new URLSearchParams({ orden, limite });
-        const respuesta = await fetch(`${API}/albumes?${params}`, {
+        const respuesta = await fetch(`${API_BASE_URL}/albumes?${params}`, {
           signal: controlador.signal,
         });
         if (!respuesta.ok) throw new Error(`HTTP ${respuesta.status}`);
