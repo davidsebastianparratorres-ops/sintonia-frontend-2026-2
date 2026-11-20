@@ -3,7 +3,7 @@
 }
 body {
   margin: 0;
-  font-family: var(--fuente-inter); 
+  font-family: var(--fuente-inter);
   line-height: 1.6;
   background: var(--fondo-base);
   color: var(--texto-principal);
@@ -33,11 +33,9 @@ select {
 
 .landing {
   background: var(--fondo-base);
-  color: var(--tinta);
+  color: var(--texto-principal);
   min-height: 100dvh;
-  font-family: "DM Sans", sans-serif;
 }
-
 .landing h1,
 .landing h2,
 .landing h3,
@@ -75,72 +73,43 @@ select {
 .landing a:focus-visible,
 .landing input:focus-visible,
 .landing select:focus-visible {
-  outline: 3px solid var(--marca-primario);
-  outline-offset: 5px;
+  outline: 3px solid var(--color-foco);
+  outline-offset: var(--espacio-1);
 }
 .landing main:focus {
   outline: none;
 }
 .landing [id] {
-  scroll-margin-top: 24px;
+  scroll-margin-top: var(--espacio-6);
 }
 .ancho-home {
-  width: min(1280px, calc(100% - 160px));
+  width: min(var(--ancho-contenido), calc(100% - var(--margen-pagina) * 2));
   margin-inline: auto;
-}
-.boton-home {
-  min-height: 44px;
-  padding: 12px 24px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  border: 1px solid var(--borde-fuerte);
-  border-radius: 99px;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 1.4;
-  text-align: center;
-  color: var(--tinta);
-  text-decoration: none;
-  background: transparent;
-  transition:
-    transform 160ms ease,
-    filter 160ms ease;
-}
-.boton-home.primario {
-  background: var(--marca-primario);
-  border-color: var(--marca-primario);
-  color: var(--texto-sobre-marca);
-}
-.boton-home:hover {
-  filter: brightness(0.94);
-  transform: translateY(-2px);
 }
 .grupo-botones {
   display: flex;
-  gap: 12px;
+  gap: var(--espacio-3);
   flex-wrap: wrap;
 }
 .titulo-seccion {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 24px;
+  gap: var(--espacio-4);
+  margin-bottom: var(--espacio-6);
 }
 .titulo-seccion h2 {
-  font-size: 28px;
+  font-size: var(--tipo-h2-size);
 }
 .enlace-home {
-  color: var(--marca-primario) !important;
+  color: var(--texto-marca) !important;
   display: inline-flex;
-  gap: 8px;
+  gap: var(--espacio-2);
   align-items: center;
   background: none;
   border: 0;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: var(--tipo-cuerpo-p-size);
+  font-weight: var(--peso-fuerte);
 }
 .enlace-home:hover {
   text-decoration: underline;
@@ -148,27 +117,21 @@ select {
 
 @media (max-width: 900px) {
   .ancho-home {
-    width: calc(100% - 48px);
+    width: calc(100% - var(--espacio-12));
   }
 }
 @media (max-width: 640px) {
   .ancho-home {
-    width: calc(100% - 32px);
+    width: calc(100% - var(--espacio-8));
   }
-}
-@media (max-width: 640px) {
   .titulo-seccion {
-    gap: 12px;
+    gap: var(--espacio-3);
   }
-}
-@media (max-width: 640px) {
   .titulo-seccion h2 {
-    font-size: 21px;
+    font-size: 1.3125rem;
   }
-}
-@media (max-width: 640px) {
   .enlace-home {
-    font-size: 12px;
+    font-size: var(--tipo-nota-size);
     flex-shrink: 0;
   }
 }
@@ -188,16 +151,14 @@ select {
   font-family: var(--fuente-syne);
 }
 
-/* src/styles/global.css */
-
 /* 1. Alto Contraste */
 html.high-contrast {
   filter: contrast(125%);
 }
 
 html.high-contrast body {
-  background-color: #000000 !important;
-  color: #ffffff !important;
+  background-color: var(--fijo-negro) !important;
+  color: var(--fijo-blanco) !important;
 }
 
 /* 2. Reducir Movimiento */
@@ -212,7 +173,7 @@ html.reduce-motion *::after {
 /* 3. Subrayar Enlaces */
 html.underline-links a {
   text-decoration: underline !important;
-  text-underline-offset: 4px !important;
+  text-underline-offset: var(--espacio-1) !important;
 }
 
 /* 4. Espaciado de Lectura */

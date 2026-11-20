@@ -77,8 +77,8 @@
 .ap-text-btn {
     background: var(--fondo-sutil);
     border: none;
-    width: 40px;
-    height: 32px;
+    width: var(--espacio-10);
+    height: var(--espacio-8);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -90,7 +90,7 @@
 }
 
 .ap-text-btn:hover {
-    background-color: var(--fondo-presionado);
+    background-color: var(--boton-superficie-fondo-presionado);
     /*[cite: 17] */
 }
 
@@ -196,7 +196,7 @@
     /*[cite: 17] */
     background-color: transparent;
     /*[cite: 17] */
-    border: 1px solid var(--borde-fuerte);
+    border: var(--boton-borde) solid var(--boton-superficie-borde);
     /*[cite: 17] */
     border-radius: var(--radio-md);
     /*[cite: 17] */

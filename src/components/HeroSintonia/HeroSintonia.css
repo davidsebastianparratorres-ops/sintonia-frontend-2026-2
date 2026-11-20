@@ -12,27 +12,34 @@
   background: var(--marca-suave);
   color: var(--marca-primario);
   padding: 4px 10px;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
 }
 .hero-sintonia h1 {
   margin: 28px 0;
   font-family: var(--fuente-syne);
-  font-size: clamp(64px, 7.5vw, 120px);
+  font-size: clamp(
+    4rem,
+    calc(7.5vw * var(--escala-texto)),
+    7.5rem
+  );
   font-weight: 800;
   line-height: 0.98;
   letter-spacing: -0.035em;
+  text-wrap: balance;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+.hero-sintonia .texto-hero {
+  min-width: 0;
 }
 .hero-sintonia .texto-hero > p {
   max-width: 650px;
-  font-size: 18px;
+  font-size: 1.125rem;
   color: var(--texto-secundario);
   line-height: 1.65;
   margin-bottom: 24px;
-}
-.hero-sintonia .boton-home {
-  min-height: 54px;
-  
 }
 .cifras-sintonia {
   display: flex;
@@ -41,13 +48,13 @@
 }
 .cifras-sintonia dt {
   font:
-    700 30px "Syne",
+    700 1.875rem "Syne",
     sans-serif;
   color: var(--marca-primario);
 }
 .cifras-sintonia dd {
   margin: 4px 0 0;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--texto-secundario);
 }
 @media (max-width: 1000px) {
@@ -57,7 +64,7 @@
 }
 @media (max-width: 1000px) {
   .hero-sintonia h1 {
-    font-size: 72px;
+    font-size: 4.5rem;
   }
 }
 @media (max-width: 1000px) {
@@ -74,7 +81,11 @@
 }
 @media (max-width: 640px) {
   .hero-sintonia h1 {
-    font-size: clamp(42px, 10vw, 64px);
+    font-size: clamp(
+      2.625rem,
+      calc(10vw * var(--escala-texto)),
+      4rem
+    );
     line-height: 1.05;
     letter-spacing: -0.025em;
     margin: 20px 0 16px;
@@ -92,18 +103,13 @@
 }
 @media (max-width: 640px) {
   .hero-sintonia .texto-hero > p {
-    font-size: 14px;
+    font-size: 0.875rem;
     line-height: 1.6;
   }
 }
 @media (max-width: 640px) {
   .hero-sintonia .grupo-botones {
     flex-direction: column;
-  }
-}
-@media (max-width: 640px) {
-  .hero-sintonia .boton-home {
-    min-height: 44px;
   }
 }
 @media (max-width: 640px) {

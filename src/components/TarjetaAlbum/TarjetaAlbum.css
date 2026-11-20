@@ -22,12 +22,12 @@
 }
 .tarjeta-album > span {
   display: block;
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 600;
 }
 .tarjeta-album > small {
   display: block;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--texto-secundario);
   margin-top: 3px;
 }
@@ -39,11 +39,11 @@
 }
 @media (max-width: 640px) {
   .tarjeta-album > span {
-    font-size: 13px;
+    font-size: 0.8125rem;
   }
 }
 @media (max-width: 640px) {
   .tarjeta-album > small {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 }

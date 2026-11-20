@@ -15,10 +15,10 @@ export default function EncabezadoCatalogo({ generoSeleccionado, textos }) {
           <h1>
             <span className="titulo-catalogo-mobile">{tituloMovil}</span>
             <span className="titulo-catalogo-completo">
-              {tCat?.encabezado?.titulo || "Catálogo musical"}
+              {tCat?.encabezado?.titulo }
             </span>
           </h1>
-          <p>{tCat?.encabezado?.subtitulo || "Explora por género o abre un álbum para ver sus canciones."}</p>
+          <p>{tCat?.encabezado?.subtitulo}</p>
         </>
       )}
     </header>

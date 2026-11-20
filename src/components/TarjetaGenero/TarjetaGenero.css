@@ -16,7 +16,8 @@
   z-index: 1;
   display: block;
   align-self: start;
-  font: 700 20px "Syne", sans-serif;
+  font: 700 1.25rem "Syne", sans-serif;
+  overflow-wrap: anywhere;
 }
 
 .tarjeta-genero .portada-album {
@@ -52,7 +53,7 @@
     border-radius: 10px;
   }
   .tarjeta-genero span {
-    font-size: 16px;
+    font-size: 1rem;
   }
   .tarjeta-genero .portada-album {
     width: 68px;

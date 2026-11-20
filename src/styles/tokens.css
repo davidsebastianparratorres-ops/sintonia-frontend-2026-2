@@ -2,6 +2,8 @@
 /* Nombres iguales a las variables de Figma: "fondo/pagina" se usa como var(--fondo-pagina). */
 
 :root {
+  --escala-texto: 1;
+
   /* Color (modo Oscuro) */
   --fondo-base: #0c0b10;
   --fondo-superficie: #16151c;
@@ -36,23 +38,102 @@
   --portada-6: #4c8dff;
   --fijo-negro: #0c0b10;
   --fijo-blanco: #ffffff;
-  /* Medidas */
+  /* Anillo de foco. Antes se referenciaba como --color-foco y no existía. */
+  --color-foco: var(--marca-primario);
+
+  /* Medidas. La escala sigue el paso de 4px (espacio-N = N × 4px). */
   --espacio-1: 4px;
   --espacio-2: 8px;
+  --espacio-2-5: 10px;
   --espacio-3: 12px;
   --espacio-4: 16px;
+  --espacio-5: 20px;
   --espacio-6: 24px;
+  --espacio-7: 28px;
   --espacio-8: 32px;
+  --espacio-10: 40px;
   --espacio-12: 48px;
   --espacio-16: 64px;
+  --espacio-20: 80px;
   --radio-sm: 6px;
   --radio-md: 10px;
   --radio-lg: 16px;
   --radio-xl: 24px;
   --radio-completo: 999px;
+
+  /* Layout de página */
+  --ancho-contenido: 1280px;
+  --margen-pagina: var(--espacio-20);
+
   /* Familias tipográficas (Google Fonts) */
   --fuente-syne: "Syne", system-ui, sans-serif;
   --fuente-inter: "Inter", system-ui, sans-serif;
+
+  /* Pesos. Las clases tipográficas y los botones leen estos valores. */
+  --peso-regular: 400;
+  --peso-fuerte: 600;
+  --peso-titulo: 700;
+  --peso-display: 800;
+
+  /* Escala tipográfica */
+  --tipo-gigante-size: 7.5rem;
+  --tipo-gigante-line: 6.75rem;
+  --tipo-gigante-track: -0.03em;
+  --tipo-display-size: 4rem;
+  --tipo-display-line: 4.25rem;
+  --tipo-display-track: -0.02em;
+  --tipo-h1-size: 2.5rem;
+  --tipo-h1-line: 2.875rem;
+  --tipo-h1-track: -0.015em;
+  --tipo-h2-size: 1.75rem;
+  --tipo-h2-line: 2.125rem;
+  --tipo-h2-track: -0.01em;
+  --tipo-h3-size: 1.25rem;
+  --tipo-h3-line: 1.625rem;
+  --tipo-h3-track: -0.005em;
+  --tipo-h4-size: 1rem;
+  --tipo-h4-line: 1.375rem;
+  --tipo-cuerpo-g-size: 1.125rem;
+  --tipo-cuerpo-g-line: 1.75rem;
+  --tipo-cuerpo-m-size: 1rem;
+  --tipo-cuerpo-m-line: 1.5rem;
+  --tipo-cuerpo-p-size: 0.875rem;
+  --tipo-cuerpo-p-line: 1.25rem;
+  --tipo-nota-size: 0.75rem;
+  --tipo-nota-line: 1rem;
+  --tipo-etiqueta-size: 0.6875rem;
+  --tipo-etiqueta-line: 1rem;
+  --tipo-etiqueta-track: 0.08em;
+  --tipo-cifra-size: 2rem;
+  --tipo-cifra-line: 2.25rem;
+  --tipo-cifra-track: -0.01em;
+
+  /* Botones (Figma). El secundario suma 2px porque incluye el borde de 1px. */
+  --boton-radio: var(--radio-completo);
+  --boton-borde: 1px;
+  --boton-primario-fondo: var(--marca-primario);
+  --boton-primario-fondo-hover: var(--marca-primario-hover);
+  --boton-primario-fondo-presionado: var(--marca-primario-presionado);
+  --boton-primario-texto: var(--texto-sobre-marca);
+  --boton-inverso-fondo: var(--fijo-negro);
+  --boton-inverso-fondo-hover: var(--fondo-elevada);
+  --boton-inverso-fondo-presionado: var(--fondo-superficie);
+  --boton-inverso-texto: var(--fijo-blanco);
+  --boton-superficie-fondo: var(--fondo-superficie);
+  --boton-superficie-fondo-hover: var(--fondo-sutil);
+  --boton-superficie-fondo-presionado: var(--fondo-elevada);
+  --boton-superficie-texto: var(--texto-principal);
+  --boton-superficie-borde: var(--borde-fuerte);
+  --boton-ancho-m: 81px;
+  --boton-alto-m: 40px;
+  --boton-ancho-g: 102px;
+  --boton-alto-g: 52px;
+  --boton-ancho-secundario-m: 83px;
+  --boton-alto-secundario-m: 42px;
+  --boton-ancho-secundario-g: 104px;
+  --boton-alto-secundario-g: 54px;
+  --boton-alto-tactil: 44px;
+
   /* Sombras */
   --sombra-tarjeta: 0px 8px 24px 0px #00000059;
   --sombra-flotante: 0px 24px 64px 0px #0000008c;
@@ -84,104 +165,106 @@
   --estado-alerta-suave: #fbefd3;
   --estado-error: #c8322b;
   --estado-error-suave: #fbe1df;
+  /* Lima sobre fondo claro no alcanza contraste de foco. */
+  --color-foco: var(--texto-marca);
 }
 
 /* Estilos de texto de Figma como clases. */
 .titular-gigante {
   font-family: var(--fuente-syne);
-  font-weight: 800;
-  font-size: 120px;
-  line-height: 108px;
-  letter-spacing: -0.03em;
+  font-weight: var(--peso-display);
+  font-size: var(--tipo-gigante-size);
+  line-height: var(--tipo-gigante-line);
+  letter-spacing: var(--tipo-gigante-track);
 }
 .titular-display {
   font-family: var(--fuente-syne);
-  font-weight: 800;
-  font-size: 64px;
-  line-height: 68px;
-  letter-spacing: -0.02em;
+  font-weight: var(--peso-display);
+  font-size: var(--tipo-display-size);
+  line-height: var(--tipo-display-line);
+  letter-spacing: var(--tipo-display-track);
 }
 .titular-h1 {
   font-family: var(--fuente-syne);
-  font-weight: 700;
-  font-size: 40px;
-  line-height: 46px;
-  letter-spacing: -0.015em;
+  font-weight: var(--peso-titulo);
+  font-size: var(--tipo-h1-size);
+  line-height: var(--tipo-h1-line);
+  letter-spacing: var(--tipo-h1-track);
 }
 .titular-h2 {
   font-family: var(--fuente-syne);
-  font-weight: 700;
-  font-size: 28px;
-  line-height: 34px;
-  letter-spacing: -0.01em;
+  font-weight: var(--peso-titulo);
+  font-size: var(--tipo-h2-size);
+  line-height: var(--tipo-h2-line);
+  letter-spacing: var(--tipo-h2-track);
 }
 .titular-h3 {
   font-family: var(--fuente-syne);
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 26px;
-  letter-spacing: -0.005em;
+  font-weight: var(--peso-titulo);
+  font-size: var(--tipo-h3-size);
+  line-height: var(--tipo-h3-line);
+  letter-spacing: var(--tipo-h3-track);
 }
 .titular-h4 {
   font-family: var(--fuente-syne);
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 22px;
+  font-weight: var(--peso-titulo);
+  font-size: var(--tipo-h4-size);
+  line-height: var(--tipo-h4-line);
 }
 .cuerpo-g {
   font-family: var(--fuente-inter);
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 28px;
+  font-weight: var(--peso-regular);
+  font-size: var(--tipo-cuerpo-g-size);
+  line-height: var(--tipo-cuerpo-g-line);
 }
 .cuerpo-m {
   font-family: var(--fuente-inter);
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
+  font-weight: var(--peso-regular);
+  font-size: var(--tipo-cuerpo-m-size);
+  line-height: var(--tipo-cuerpo-m-line);
 }
 .cuerpo-m-fuerte {
   font-family: var(--fuente-inter);
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
+  font-weight: var(--peso-fuerte);
+  font-size: var(--tipo-cuerpo-m-size);
+  line-height: var(--tipo-cuerpo-m-line);
 }
 .cuerpo-p {
   font-family: var(--fuente-inter);
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
+  font-weight: var(--peso-regular);
+  font-size: var(--tipo-cuerpo-p-size);
+  line-height: var(--tipo-cuerpo-p-line);
 }
 .cuerpo-p-fuerte {
   font-family: var(--fuente-inter);
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 20px;
+  font-weight: var(--peso-fuerte);
+  font-size: var(--tipo-cuerpo-p-size);
+  line-height: var(--tipo-cuerpo-p-line);
 }
 .detalle-nota {
   font-family: var(--fuente-inter);
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 16px;
+  font-weight: var(--peso-regular);
+  font-size: var(--tipo-nota-size);
+  line-height: var(--tipo-nota-line);
 }
 .detalle-nota-fuerte {
   font-family: var(--fuente-inter);
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 16px;
+  font-weight: var(--peso-fuerte);
+  font-size: var(--tipo-nota-size);
+  line-height: var(--tipo-nota-line);
 }
 .detalle-etiqueta {
   font-family: var(--fuente-inter);
-  font-weight: 600;
-  font-size: 11px;
-  line-height: 16px;
-  letter-spacing: 0.08em;
+  font-weight: var(--peso-fuerte);
+  font-size: var(--tipo-etiqueta-size);
+  line-height: var(--tipo-etiqueta-line);
+  letter-spacing: var(--tipo-etiqueta-track);
   text-transform: uppercase;
 }
 .dato-cifra {
   font-family: var(--fuente-syne);
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 36px;
-  letter-spacing: -0.01em;
+  font-weight: var(--peso-titulo);
+  font-size: var(--tipo-cifra-size);
+  line-height: var(--tipo-cifra-line);
+  letter-spacing: var(--tipo-cifra-track);
 }

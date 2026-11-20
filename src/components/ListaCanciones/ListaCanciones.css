@@ -22,7 +22,7 @@
 
 .numero-cancion {
   width: 32px;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--texto-secundario);
 }
 
@@ -34,15 +34,15 @@
 
 .titulo-cancion {
   font-weight: 600;
-  font-size: 15px;
+  font-size: 0.9375rem;
 }
 
 .artista-cancion {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--texto-secundario);
 }
 
 .duracion-cancion {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--texto-secundario);
 }

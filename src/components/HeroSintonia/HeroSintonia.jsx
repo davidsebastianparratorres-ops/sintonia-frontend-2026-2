@@ -10,7 +10,7 @@ export default function HeroSintonia({ textos, totalGeneros }) {
       <div className="texto-hero">
         <span className="etiqueta-sintonia ">{hero?.etiquetas?.temporada}</span>
         
-            <h1>
+            <h1 className="titular-gigante">
                 {hero?.titulo}
             </h1>
         
@@ -20,12 +20,12 @@ export default function HeroSintonia({ textos, totalGeneros }) {
         <div className="grupo-botones">
           <button
             type="button"
-            className="boton-home primario"
+            className="btn btn-primario-g"
             onClick={() => abrirCuenta("registro")}
           >
             {hero?.botones?.crearCuentaGratis}
           </button>
-          <a className="boton-home secundario" href="#catalogo">
+          <a className="btn btn-secundario-g" href="#catalogo">
             {hero?.botones?.explorarCatalogo}
           </a>
         </div>

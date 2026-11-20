@@ -1,0 +1,153 @@
+/*
+  Sistema de botones.
+  Uso: class="btn btn-primario-m" (el sufijo -m / -g fija el tamaño de Figma).
+*/
+
+.btn {
+  --btn-ancho: var(--boton-ancho-m);
+  --btn-alto: var(--boton-alto-m);
+  --btn-fuente-size: var(--tipo-cuerpo-p-size);
+  --btn-fuente-line: var(--tipo-cuerpo-p-line);
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espacio-2);
+  min-width: var(--btn-ancho);
+  height: var(--btn-alto);
+  padding: 0 var(--espacio-4);
+  border: 0;
+  border-radius: var(--boton-radio);
+  background: transparent;
+  color: var(--boton-superficie-texto);
+  font-family: var(--fuente-inter);
+  font-size: var(--btn-fuente-size);
+  font-weight: var(--peso-fuerte);
+  line-height: var(--btn-fuente-line);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--color-foco);
+  outline-offset: var(--espacio-1);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Estilo */
+.btn-primario,
+.btn-primario-m,
+.btn-primario-g {
+  --btn-ancho: var(--boton-ancho-m);
+  --btn-alto: var(--boton-alto-m);
+  background: var(--boton-primario-fondo);
+  color: var(--boton-primario-texto);
+}
+
+.btn-primario:hover,
+.btn-primario-m:hover,
+.btn-primario-g:hover {
+  background: var(--boton-primario-fondo-hover);
+  color: var(--boton-primario-texto);
+}
+
+.btn-primario:active,
+.btn-primario-m:active,
+.btn-primario-g:active {
+  background: var(--boton-primario-fondo-presionado);
+  color: var(--boton-primario-texto);
+}
+
+.btn-secundario,
+.btn-secundario-m,
+.btn-secundario-g,
+.btn-fantasma,
+.btn-fantasma-m,
+.btn-fantasma-g {
+  background: var(--boton-superficie-fondo);
+  color: var(--boton-superficie-texto);
+}
+
+.btn-secundario,
+.btn-secundario-m,
+.btn-secundario-g {
+  --btn-ancho: var(--boton-ancho-secundario-m);
+  --btn-alto: var(--boton-alto-secundario-m);
+  border: var(--boton-borde) solid var(--boton-superficie-borde);
+}
+
+.btn-fantasma,
+.btn-fantasma-m,
+.btn-fantasma-g {
+  --btn-ancho: var(--boton-ancho-m);
+  --btn-alto: var(--boton-alto-m);
+  border: 0;
+  background: transparent;
+}
+
+.btn-secundario:hover,
+.btn-secundario-m:hover,
+.btn-secundario-g:hover,
+.btn-fantasma:hover,
+.btn-fantasma-m:hover,
+.btn-fantasma-g:hover {
+  background: var(--boton-superficie-fondo-hover);
+  color: var(--boton-superficie-texto);
+}
+
+.btn-secundario:active,
+.btn-secundario-m:active,
+.btn-secundario-g:active,
+.btn-fantasma:active,
+.btn-fantasma-m:active,
+.btn-fantasma-g:active {
+  background: var(--boton-superficie-fondo-presionado);
+  color: var(--boton-superficie-texto);
+}
+
+.btn-inverso,
+.btn-inverso-g {
+  background: var(--boton-inverso-fondo);
+  color: var(--boton-inverso-texto);
+}
+
+.btn-inverso:hover,
+.btn-inverso-g:hover {
+  background: var(--boton-inverso-fondo-hover);
+  color: var(--boton-inverso-texto);
+}
+
+.btn-inverso:active,
+.btn-inverso-g:active {
+  background: var(--boton-inverso-fondo-presionado);
+  color: var(--boton-inverso-texto);
+}
+
+/* Tamaño dentro de la variante de Figma */
+.btn-primario-g,
+.btn-fantasma-g,
+.btn-inverso-g {
+  --btn-ancho: var(--boton-ancho-g);
+  --btn-alto: var(--boton-alto-g);
+  --btn-fuente-size: var(--tipo-cuerpo-m-size);
+  --btn-fuente-line: var(--tipo-cuerpo-m-line);
+  padding-inline: var(--espacio-6);
+}
+
+.btn-secundario-g {
+  --btn-ancho: var(--boton-ancho-secundario-g);
+  --btn-alto: var(--boton-alto-secundario-g);
+  --btn-fuente-size: var(--tipo-cuerpo-m-size);
+  --btn-fuente-line: var(--tipo-cuerpo-m-line);
+  padding-inline: var(--espacio-6);
+}

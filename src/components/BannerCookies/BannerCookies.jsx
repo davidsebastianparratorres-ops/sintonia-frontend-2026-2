@@ -40,10 +40,16 @@ export default function BannerCookies({ textos, idioma }) {
           <p>{banner?.texto}</p>
         </div>
         <div className="banner-cookies-acciones">
-          <button className="boton-cookie secundario" onClick={() => responder(false)}>
+          <button
+            className="btn btn-secundario"
+            onClick={() => responder(false)}
+          >
             {banner?.botones?.rechazar}
           </button>
-          <button className="boton-cookie primario" onClick={() => responder(true)}>
+          <button
+            className="btn btn-primario"
+            onClick={() => responder(true)}
+          >
             {banner?.botones?.aceptar}
           </button>
         </div>
