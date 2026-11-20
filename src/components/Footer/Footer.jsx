@@ -1,14 +1,15 @@
+import { Link } from "react-router-dom";
 import "./Footer.css";
 import Logo from "../../assets/logo.svg";
 
 // Destinos de cada enlace. Las claves coinciden con las de la API (footer.columnas.*.enlaces)
 const DESTINOS = {
-  inicio: "#inicio",
-  catalogo: "#catalogo",
-  ingresar: "#ingresar",
-  crearCuenta: "#crear-cuenta",
-  terminos: "#terminos",
-  accesibilidad: "#accesibilidad"
+  inicio: "/",
+  catalogo: "/catalogo",
+  ingresar: "/ingresar",
+  crearCuenta: "/crear-cuenta",
+  terminos: "/terminos",
+  accesibilidad: "/accesibilidad",
 };
 
 const Footer = ({ textos, idioma }) => {
@@ -29,13 +30,13 @@ const Footer = ({ textos, idioma }) => {
       <div className="footer-interior">
         <div className="footer-superior">
           <div className="footer-marca">
-            <a
-              href="#inicio"
+            <Link
+              to="/"
               className="footer-logo"
               aria-label={textos?.navbar?.logo?.aria ?? "Inicio"}
             >
               <img src={Logo} alt="Logo de Sintonía" />
-            </a>
+            </Link>
             <p className="footer-lema">{pie.lema}</p>
           </div>
 
@@ -51,7 +52,7 @@ const Footer = ({ textos, idioma }) => {
                     .filter(([id]) => DESTINOS[id])
                     .map(([id, etiqueta]) => (
                       <li key={id}>
-                        <a href={DESTINOS[id]}>{etiqueta}</a>
+                        <Link to={DESTINOS[id]}>{etiqueta}</Link>
                       </li>
                     ))}
                 </ul>

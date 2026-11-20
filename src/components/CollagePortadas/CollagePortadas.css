@@ -2,6 +2,8 @@
   position: relative;
   aspect-ratio: 1.15;
   margin-top: 20px;
+  max-width: 540px;
+  max-height: 480px;
 }
 .collage-sintonia > .portada-album {
   position: absolute;

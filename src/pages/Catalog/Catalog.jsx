@@ -1,29 +1,24 @@
-import { useEffect, useState } from "react";
-import EncabezadoCatalogo from "../../components/EncabezadoCatalogo/EncabezadoCatalogo";
+import { useOutletContext, useSearchParams } from "react-router-dom";
+import EncabezadoCatalogo from "../../components/EncabezadoCatalogo/EncabezadoCatalogo.jsx";
 import SeccionGeneros from "../../components/SeccionGeneros/SeccionGeneros.jsx";
 import SeccionAlbumes from "../../components/SeccionesAlbumes/SeccionesAlbumes.jsx";
 import TarjetaArtista from "../../components/TarjetaArtista/TarjetaArtista.jsx";
 import ListaCanciones from "../../components/ListaCanciones/ListaCanciones.jsx";
 import { useGenero } from "../../hooks/useGenero.js";
+import { useGeneros } from "../../hooks/useGeneros.js";
 import { useCatalogo } from "../../hooks/useCatalogo.js";
 import "./Catalog.css";
 
-export default function Catalogo({
-  datos,
-  generos = [],
-  onSeleccionarAlbum,
-}) {
-  const [generoActivo, setGeneroActivo] = useState(
-    () => new URLSearchParams(window.location.search).get("genero") || null,
-  );
+export default function Catalogo() {
+  // 1. Obtiene los textos y el manejador del modal desde LayoutPublico
+  const { datos, abrirAlbum } = useOutletContext();
 
-  useEffect(() => {
-    const url = new URL(window.location.href);
-    if (generoActivo) url.searchParams.set("genero", generoActivo);
-    else url.searchParams.delete("genero");
-    window.history.replaceState({}, "", url);
-  }, [generoActivo]);
+  // 2. Sincroniza el filtro de género directamente con la URL (?genero=...)
+  const [searchParams, setSearchParams] = useSearchParams();
+  const generoActivo = searchParams.get("genero") || null;
 
+  // 3. Carga los géneros por sí mismo (antes venían por props desde Home)
+  const { generos } = useGeneros();
   const { detalle, cargando, error } = useGenero(generoActivo);
   const {
     albumes: albumesGenerales,
@@ -43,8 +38,18 @@ export default function Catalogo({
     (a, b) => (b.reproducciones ?? 0) - (a.reproducciones ?? 0),
   );
 
-  const alternarGenero = (id) =>
-    setGeneroActivo((prev) => (prev === id ? null : id));
+  // Alterna el parámetro ?genero en la URL sin recargar ni usar window.history manualmente
+  const alternarGenero = (id) => {
+    setSearchParams((prev) => {
+      const nuevosParams = new URLSearchParams(prev);
+      if (generoActivo === id) {
+        nuevosParams.delete("genero");
+      } else {
+        nuevosParams.set("genero", id);
+      }
+      return nuevosParams;
+    }, { replace: true });
+  };
 
   const tituloAlbumes = generoActivo
     ? (tCat?.genero?.albumes?.titulo || "Álbumes de {genero}").replace(
@@ -70,7 +75,7 @@ export default function Catalogo({
 
       {generoActivo && error && (
         <p role="alert" className="catalogo-error">
-          {tCat?.error?.texto }
+          {tCat?.error?.texto}
         </p>
       )}
 
@@ -97,7 +102,7 @@ export default function Catalogo({
             titulo={tituloAlbumes}
             filaHorizontal
             mostrarEnlaceDescubrirMas={false}
-            onSeleccionar={onSeleccionarAlbum}
+            onSeleccionar={abrirAlbum}
           />
         ) : (
           !cargando &&
@@ -116,14 +121,14 @@ export default function Catalogo({
           error={errorGenerales}
           titulo={tituloAlbumes}
           filaHorizontal
-          onSeleccionar={onSeleccionarAlbum}
+          onSeleccionar={abrirAlbum}
         />
       )}
 
       {generoActivo && pistas.length > 0 && (
         <ListaCanciones
           canciones={pistas}
-          titulo={tCat?.genero?.canciones?.titulo }
+          titulo={tCat?.genero?.canciones?.titulo}
         />
       )}
     </main>

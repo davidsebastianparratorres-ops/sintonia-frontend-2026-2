@@ -1,42 +1,41 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Navbar.css";
 import Icono from "../Icono";
 import Logo from "../../assets/logo.svg";
 import { PanelAccesibilidad } from "../PanelAccesibilidad/PanelAccesibilidad.jsx";
-const DESTINOS_INVITADO = {
-  inicio: "#inicio",
-  catalogo: "#catalogo",
-};
 
+const DESTINOS_INVITADO = {
+  inicio: "/",
+  catalogo: "/catalogo",
+};
 
 const Navbar = ({
   textos,
   cargando,
   cambiarIdioma,
-  activo,
   error,
   recargar,
   idioma,
   onBuscar,
 }) => {
-  const [abierto, setAbierto] = useState(false); //Saber si el toogle de mobile esta abierto
+  const [abierto, setAbierto] = useState(false); // Saber si el toggle de mobile está abierto
   const [accesibilidadAbierta, setAccesibilidadAbierta] = useState(false);
   const [posicionPanel, setPosicionPanel] = useState({ top: 80, right: 16 });
-  const [busqueda, setBusqueda] = useState(""); //sin valor a buscar
+  const [busqueda, setBusqueda] = useState(""); // Sin valor a buscar
   const botonMenu = useRef(null);
   const botonAccesibilidad = useRef(null);
   const campoBusqueda = useRef(null);
   const nav = textos?.navbar;
-  const ingles = idioma === "en"; 
+  const ingles = idioma === "en";
   const abrir =
-    textos?.menuMovil.abrir ?? (ingles ? "Open menu" : "Abrir menu");
+    textos?.menuMovil?.abrir ?? (ingles ? "Open menu" : "Abrir menu");
   const cerrar =
-    textos?.menuMovil.cerrar ?? (ingles ? "Close menu" : "Cerrar menu");
+    textos?.menuMovil?.cerrar ?? (ingles ? "Close menu" : "Cerrar menu");
   const enlacesInvitado = Object.entries(nav?.enlaces ?? {}).filter(
     ([clave]) => DESTINOS_INVITADO[clave],
   );
-  //convierte objeto en un arreglo de pares
 
   useEffect(() => {
     function cerrarConEscape(evento) {
@@ -49,7 +48,7 @@ const Navbar = ({
         botonMenu.current?.focus();
       }
     }
-    document.addEventListener("keydown", cerrarConEscape); //Escucha las teclas en todo el documento
+    document.addEventListener("keydown", cerrarConEscape);
     return () => document.removeEventListener("keydown", cerrarConEscape);
   }, [abierto, accesibilidadAbierta]);
 
@@ -75,21 +74,20 @@ const Navbar = ({
     };
   }, [accesibilidadAbierta]);
 
-
   return (
-    <header className="navbar ">
+    <header className="navbar">
       <nav
         className="navbar-interior"
-        aria-label={nav?.aria.navegacion ?? "Navegación Principal"}
+        aria-label={nav?.aria?.navegacion ?? "Navegación Principal"}
       >
-        <a
-          href="#inicio"
+        <Link
+          to="/"
           className="navbar-marca"
-          aria-label={nav?.logo.aria ?? "Inicio"}
+          aria-label={nav?.logo?.aria ?? "Inicio"}
           onClick={() => setAbierto(false)}
         >
           <img src={Logo} alt="Logo de sintonia" />
-        </a>
+        </Link>
 
         <div className="navbar-movil-acciones">
           {!abierto && (
@@ -112,6 +110,7 @@ const Navbar = ({
             <Icono nombre={abierto ? "cerrar" : "menu"} />
           </button>
         </div>
+
         <div
           id="navbar-panel"
           className={`navbar-panel${abierto ? " is-abierto" : ""}`}
@@ -139,46 +138,27 @@ const Navbar = ({
             </div>
           )}
           {nav && (
-            <>
-              <ul className="navbar-enlaces">
-                {enlacesInvitado.map(([clave, etiqueta]) => (
-                  <li key={clave}>
-                    <a
-                      href={DESTINOS_INVITADO[clave]}
-                      aria-current={activo === clave ? "page" : undefined}
-                      onClick={() => setAbierto(false)}
-                    >
-                      {etiqueta}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-  
-            </>
+            <ul className="navbar-enlaces">
+              {enlacesInvitado.map(([clave, etiqueta]) => (
+                <li key={clave}>
+                  <NavLink
+                    to={DESTINOS_INVITADO[clave]}
+                    end={clave === "inicio"}
+                    onClick={() => setAbierto(false)}
+                  >
+                    {etiqueta}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
           )}
 
           <div className="navbar-accesibilidad-sesion">
             <div className="navbar-utilidades">
-              <button
-                ref={botonAccesibilidad}
-                className="navbar-accesibilidad"
-                type="button"
-                aria-label={
-                  ingles ? "Accessibility options" : "Opciones de accesibilidad"
-                }
-                aria-expanded={accesibilidadAbierta}
-                aria-controls="panel-accesibilidad"
-                onClick={() =>
-                  setAccesibilidadAbierta((valor) => !valor)
-                }
-              >
-                <span>{textos?.menuMovil?.secciones.accesibilidad}</span>
-                <div className="navbar-accesibilidad-movil"><Icono nombre="accesibilidad" /></div>
-              </button>
               <div className="navbar-utilidad-fila">
                 <span>{textos?.menuMovil?.secciones?.idioma}</span>
                 <div className="navbar-idiomas-movil">
-                  <label className="navbar-idioma">
+                  <div className="navbar-idioma">
                     <button
                       type="button"
                       className="navbar-idioma-boton-es"
@@ -195,30 +175,50 @@ const Navbar = ({
                     >
                       EN
                     </button>
-                  </label>
+                  </div>
                 </div>
               </div>
+
+              <button
+                ref={botonAccesibilidad}
+                className="navbar-accesibilidad"
+                type="button"
+                aria-label={
+                  ingles
+                    ? "Accessibility options"
+                    : "Opciones de accesibilidad"
+                }
+                aria-expanded={accesibilidadAbierta}
+                aria-controls="panel-accesibilidad"
+                onClick={() => setAccesibilidadAbierta((valor) => !valor)}
+              >
+                <span>{textos?.menuMovil?.secciones?.accesibilidad}</span>
+                <div className="navbar-accesibilidad-movil">
+                  <Icono nombre="accesibilidad" />
+                </div>
+              </button>
             </div>
+
             <div className="navbar-sesion">
               <button
-                href="#ingresar"
-                type="submit"
+                type="button"
                 className="btn btn-fantasma navbar-invitado-ingresar"
                 onClick={() => setAbierto(false)}
               >
                 {nav?.botones?.invitado?.ingresar}
               </button>
-              <a
-                href="#crear-cuenta"
+              <Link
+                to="/crear-cuenta"
                 className="btn btn-primario navbar-invitado-crear-cuenta"
                 onClick={() => setAbierto(false)}
               >
                 {nav?.botones?.invitado?.crearCuenta}
-              </a>
+              </Link>
             </div>
           </div>
         </div>
       </nav>
+
       {accesibilidadAbierta &&
         createPortal(
           <div

@@ -1,5 +1,6 @@
 import TarjetaAlbum from "../TarjetaAlbum/TarjetaAlbum.jsx";
 import Flecha from "../Flecha/Flecha.jsx";
+import { Link } from "react-router-dom";
 import "./SeccionesAlbumes.css";
 
 export default function SeccionAlbumes({
@@ -27,9 +28,9 @@ export default function SeccionAlbumes({
       <div className="titulo-seccion">
         <h2 id="albumes-titulo">{tituloFinal}</h2>
         {mostrarEnlaceDescubrirMas && destacados?.enlaces?.descubrirMas && (
-          <a className="enlace-home" href="#catalogo">
+          <Link className="enlace-home" to="/catalogo">
             {destacados.enlaces.descubrirMas} <Flecha />
-          </a>
+          </Link>
         )}
       </div>
 
