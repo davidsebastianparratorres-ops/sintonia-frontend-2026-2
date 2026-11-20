@@ -20,6 +20,7 @@
 }
 .registro-sintonia .btn {
   flex-shrink: 0;
+  width: 213px;
 }
 @media (max-width: 1000px) {
   .registro-sintonia {
@@ -36,14 +37,14 @@
     background: var(--fondo-elevada);
     color: var(--texto-principal);
   }
-  .registro-sintonia .btn-inverso {
-    background: var(--boton-primario);
+  .registro-sintonia .btn-inverso-g {
+    background: var(--marca-primario);
     color: var(--boton-primario-texto);
   }
-  .registro-sintonia .btn-inverso:hover {
+  .registro-sintonia .btn-inverso-g:hover {
     background: var(--boton-primario-fondo-hover);
   }
-  .registro-sintonia .btn-inverso:active {
+  .registro-sintonia .btn-inverso-g:active {
     background: var(--boton-primario-fondo-presionado);
   }
 }
