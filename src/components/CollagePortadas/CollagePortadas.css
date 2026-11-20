@@ -32,7 +32,7 @@
   color: var(--texto-sobre-marca);
   border-radius: 16px;
   padding: 20px;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.7;
   transform: rotate(4deg);
 }
@@ -42,7 +42,7 @@
 @media (max-width: 1000px) {
   .nota-sintonia {
     padding: 14px;
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 }
 @media (max-width: 640px) {

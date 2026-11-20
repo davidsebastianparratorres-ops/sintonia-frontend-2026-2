@@ -70,13 +70,13 @@ export default function Catalogo({
 
       {generoActivo && error && (
         <p role="alert" className="catalogo-error">
-          {tCat?.error?.texto || "No pudimos cargar este género."}
+          {tCat?.error?.texto }
         </p>
       )}
 
       {generoActivo && artistas.length > 0 && (
         <section className="seccion-artistas-catalogo">
-          <h2>{tCat?.genero?.artistas?.titulo || "Artistas"}</h2>
+          <h2>{tCat?.genero?.artistas?.titulo}</h2>
           <div className="grid-artistas">
             {artistas.map((artista) => (
               <TarjetaArtista
@@ -123,7 +123,7 @@ export default function Catalogo({
       {generoActivo && pistas.length > 0 && (
         <ListaCanciones
           canciones={pistas}
-          titulo={tCat?.genero?.canciones?.titulo || "Canciones más escuchadas"}
+          titulo={tCat?.genero?.canciones?.titulo }
         />
       )}
     </main>

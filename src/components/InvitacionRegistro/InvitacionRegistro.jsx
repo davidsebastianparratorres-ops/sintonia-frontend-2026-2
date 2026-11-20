@@ -11,7 +11,10 @@ export default function InvitacionRegistro({textos, abrirCuenta }) {
           {inv?.texto}
         </p>
       </div>
-      <button className="boton-home" onClick={() => abrirCuenta("registro")}>
+      <button
+        className="btn btn-inverso-g"
+        onClick={() => abrirCuenta("registro")}
+      >
         {inv?.botones.crearCuentaGratis}
       </button>
     </section>

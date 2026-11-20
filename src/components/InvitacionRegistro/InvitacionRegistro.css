@@ -10,22 +10,16 @@
   border-radius: 16px;
 }
 .registro-sintonia h2 {
-  font-size: 28px;
+  font-size: 1.75rem;
   margin-bottom: 8px;
   font-family: var(--fuente-syne), sans-serif;
   font-weight: 700;
 }
 .registro-sintonia p {
-  font-size: 14px;
+  font-size: 0.875rem;
 }
-.registro-sintonia .boton-home {
-  background: #0c0b12;
-  color: #f4f2f7;
+.registro-sintonia .btn {
   flex-shrink: 0;
-  border-color: #0c0b12;
-}
-.registro-sintonia button:focus-visible {
-  outline-color: #0c0b12;
 }
 @media (max-width: 1000px) {
   .registro-sintonia {
@@ -42,20 +36,24 @@
     background: var(--fondo-elevada);
     color: var(--texto-principal);
   }
+  .registro-sintonia .btn-inverso {
+    background: var(--boton-primario);
+    color: var(--boton-primario-texto);
+  }
+  .registro-sintonia .btn-inverso:hover {
+    background: var(--boton-primario-fondo-hover);
+  }
+  .registro-sintonia .btn-inverso:active {
+    background: var(--boton-primario-fondo-presionado);
+  }
 }
 @media (max-width: 640px) {
   .registro-sintonia h2 {
-    font-size: 22px;
+    font-size: 1.375rem;
   }
 }
 @media (max-width: 640px) {
   .registro-sintonia p {
     color: var(--texto-secundario);
-  }
-}
-@media (max-width: 640px) {
-  .registro-sintonia .boton-home {
-    background: var(--marca-primario);
-    color: var(--texto-sobre-marca);
   }
 }

@@ -28,6 +28,7 @@ export const PanelAccesibilidad = ({textos, onClose }) => {
 
         // 1. Tamaño del texto global
         root.style.fontSize = `${fontSize}%`;
+        root.style.setProperty("--escala-texto", String(fontSize / 100));
 
         // 2. Alternar clases CSS globales según los interruptores
         root.classList.toggle('high-contrast', toggles.altoContraste);

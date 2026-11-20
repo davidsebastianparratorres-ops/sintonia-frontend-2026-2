@@ -14,12 +14,12 @@
 }
 
 .tarjeta-artista h3 {
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 700;
   margin: 0;
 }
 
 .tarjeta-artista span {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--texto-secundario);
 }

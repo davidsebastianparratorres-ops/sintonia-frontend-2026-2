@@ -93,7 +93,10 @@ const Navbar = ({
 
         <div className="navbar-movil-acciones">
           {!abierto && (
-            <button type="button" className="navbar-ingresar-movil ">
+            <button
+              type="button"
+              className="btn btn-fantasma navbar-ingresar-movil"
+            >
               {nav?.botones?.invitado?.ingresar}
             </button>
           )}
@@ -126,7 +129,11 @@ const Navbar = ({
                   ? "Navigation could not be loaded."
                   : "No pudimos cargar el menú."}
               </p>
-              <button type="button" onClick={recargar}>
+              <button
+                type="button"
+                className="btn btn-secundario"
+                onClick={recargar}
+              >
                 {ingles ? "Try again" : "Reintentar"}
               </button>
             </div>
@@ -150,68 +157,65 @@ const Navbar = ({
             </>
           )}
 
-          <div className="navbar-utilidades">
-            
-            <div className="navbar-utilidad-fila">
-              <span>{textos?.menuMovil?.secciones?.idioma}</span>
-               <div className="navbar-idiomas-movil">
-                <label className="navbar-idioma">
-                  <button
-                  type="button"
-                  className="navbar-idioma-boton-es"
-                  aria-pressed={idioma==="es"}
-                  onClick={() => cambiarIdioma("es")}
-                >
-                  ES
-                </button>
-                <button
-                  type="button"
-                  className="navbar-idioma-boton-en"
-                  aria-pressed={idioma==="en"}
-                  onClick={() => cambiarIdioma("en")}
-                >
-                  EN
-                </button>
-                </label>
-                
+          <div className="navbar-accesibilidad-sesion">
+            <div className="navbar-utilidades">
+              <button
+                ref={botonAccesibilidad}
+                className="navbar-accesibilidad"
+                type="button"
+                aria-label={
+                  ingles ? "Accessibility options" : "Opciones de accesibilidad"
+                }
+                aria-expanded={accesibilidadAbierta}
+                aria-controls="panel-accesibilidad"
+                onClick={() =>
+                  setAccesibilidadAbierta((valor) => !valor)
+                }
+              >
+                <span>{textos?.menuMovil?.secciones.accesibilidad}</span>
+                <div className="navbar-accesibilidad-movil"><Icono nombre="accesibilidad" /></div>
+              </button>
+              <div className="navbar-utilidad-fila">
+                <span>{textos?.menuMovil?.secciones?.idioma}</span>
+                <div className="navbar-idiomas-movil">
+                  <label className="navbar-idioma">
+                    <button
+                      type="button"
+                      className="navbar-idioma-boton-es"
+                      aria-pressed={idioma === "es"}
+                      onClick={() => cambiarIdioma("es")}
+                    >
+                      ES
+                    </button>
+                    <button
+                      type="button"
+                      className="navbar-idioma-boton-en"
+                      aria-pressed={idioma === "en"}
+                      onClick={() => cambiarIdioma("en")}
+                    >
+                      EN
+                    </button>
+                  </label>
                 </div>
-                
-
+              </div>
             </div>
-            <button
-              ref={botonAccesibilidad}
-              className="navbar-accesibilidad"
-              type="button"
-              aria-label={
-                ingles ? "Accessibility options" : "Opciones de accesibilidad"
-              }
-              aria-expanded={accesibilidadAbierta}
-              aria-controls="panel-accesibilidad"
-              onClick={() =>
-                setAccesibilidadAbierta((valor) => !valor)
-              }
-            >
-              <span>{textos?.menuMovil?.secciones.accesibilidad}</span>
-              <div className="navbar-accesibilidad-movil"><Icono nombre="accesibilidad" /></div>
-              
-            </button>
-          </div>
-          <div className="navbar-sesion">
-            <button
-              href="#ingresar"
-              type="submit"
-              className="navbar-invitado-ingresar "
-              onClick={() => setAbierto(false)}
-            >
-              {nav?.botones?.invitado?.ingresar}
-            </button>
-            <a
-              href="#crear-cuenta"
-              className="navbar-invitado-crear-cuenta "
-              onClick={() => setAbierto(false)}
-            >
-              {nav?.botones?.invitado?.crearCuenta}
-            </a>
+            <div className="navbar-sesion">
+              <button
+                href="#ingresar"
+                type="submit"
+                className="btn btn-fantasma navbar-invitado-ingresar"
+                onClick={() => setAbierto(false)}
+              >
+                {nav?.botones?.invitado?.ingresar}
+              </button>
+              <a
+                href="#crear-cuenta"
+                className="btn btn-primario navbar-invitado-crear-cuenta"
+                onClick={() => setAbierto(false)}
+              >
+                {nav?.botones?.invitado?.crearCuenta}
+              </a>
+            </div>
           </div>
         </div>
       </nav>
