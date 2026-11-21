@@ -162,7 +162,19 @@ export default function DetalleAlbum({ textos: textosProp, idioma: idiomaProp })
           filaHorizontal
           mostrarEnlaceDescubrirMas={false}
           textos={textos}
-          onSeleccionar={(a) => navigate(`/albumes/${a.id ?? a}`)}
+          textoSecundarioAlbum={(albumRelacionado) =>
+            plantilla(t.masDelArtista?.etiquetas?.anioYTipo, {
+              anio: anioDe(albumRelacionado.fechaPublicacion),
+              tipo:
+                t.encabezado?.etiquetas?.tipo?.[albumRelacionado.tipo] ??
+                albumRelacionado.tipo,
+            })
+          }
+          onSeleccionar={(a) => {
+            if (typeof a?.id === "string" && a.id) {
+              navigate(`/albumes/${encodeURIComponent(a.id)}`);
+            }
+          }}
         />
       )}
     </main>
