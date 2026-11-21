@@ -7,7 +7,6 @@ import { leerCookie } from "../services/cookies.js";
 import Navbar from "../components/Navbar/Navbar.jsx";
 import Footer from "../components/Footer/Footer.jsx";
 import BannerCookies from "../components/BannerCookies/BannerCookies.jsx";
-import PortadaAlbum from "../components/PortadaAlbum/PortadaAlbum.jsx";
 import "./LayoutPublico.css";
 
 export default function LayoutPublico() {
@@ -18,8 +17,6 @@ export default function LayoutPublico() {
   const { pathname } = useLocation();
   const datos = useTextos(idioma);
   const { detalle, setDetalle, abrirCuenta } = useDetalle(idioma);
-  const ingles = idioma === "en";
-
   // Sincroniza el atributo lang del documento con el idioma elegido
   useEffect(() => {
     document.documentElement.lang = idioma;
@@ -29,19 +26,6 @@ export default function LayoutPublico() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-
-  function abrirAlbum(album) {
-    const tituloAlbum = album.titulo || album.nombre;
-    const nombreArtista = album.artista?.nombre || album.artista;
-    const nombreGenero = album.genero?.nombre || album.genero;
-
-    setDetalle({
-      titulo: tituloAlbum,
-      descripcion: `${nombreArtista} · ${nombreGenero}`,
-      contenido: <PortadaAlbum portada={album.portada} />,
-      cerrar: ingles ? "Close" : "Cerrar",
-    });
-  }
 
   return (
     <div className="sitio">
@@ -58,7 +42,6 @@ export default function LayoutPublico() {
           idioma,
           detalle,
           setDetalle,
-          abrirAlbum,
           abrirCuenta,
         }}
       />

@@ -1,0 +1,130 @@
+.lista-pistas {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Móvil: portada + título/artista + duración. Sin # ni reproducciones. */
+.lista-pistas-fila {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: var(--espacio-4);
+  padding: var(--espacio-2) 0;
+  color: var(--texto-secundario);
+}
+
+.lista-pistas-cabecera,
+.lista-pistas-num,
+.lista-pistas-reproducciones {
+  display: none;
+}
+
+.lista-pistas-titulo {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-4);
+  min-width: 0;
+}
+
+.lista-pistas-portada {
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radio-md);
+  overflow: hidden;
+}
+
+.lista-pistas-portada .portada-album {
+  width: 100%;
+  height: 100%;
+}
+
+.lista-pistas-textos {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.lista-pistas-nombre {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  color: var(--texto-principal);
+  overflow-wrap: anywhere;
+}
+
+.lista-pistas-artista {
+  color: var(--texto-secundario);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lista-pistas-duracion {
+  display: inline-flex;
+  justify-content: flex-end;
+  font-variant-numeric: tabular-nums;
+}
+
+.lista-pistas-explicita {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--espacio-4);
+  padding: 0 var(--espacio-1);
+  border-radius: var(--radio-sm);
+  background: var(--fondo-sutil);
+  color: var(--texto-secundario);
+  flex: none;
+}
+
+/* Escritorio: # | título | reproducciones | duración */
+@media (min-width: 641px) {
+  .lista-pistas-fila {
+    grid-template-columns: var(--espacio-12) minmax(0, 1fr) 72px;
+    padding: var(--espacio-2) var(--espacio-2) var(--espacio-2) 0;
+    border-radius: var(--radio-md);
+  }
+
+  .lista-pistas-con-reproducciones .lista-pistas-fila {
+    grid-template-columns: var(--espacio-12) minmax(0, 1fr) minmax(120px, 240px) 72px;
+  }
+
+  .lista-pistas-num,
+  .lista-pistas-reproducciones {
+    display: block;
+  }
+
+  /* La cabecera es una fila más de la rejilla: # | título | reproducciones | reloj */
+  .lista-pistas-cabecera {
+    display: grid;
+    padding-top: var(--espacio-2);
+    padding-bottom: var(--espacio-2);
+    border-radius: 0;
+    border-bottom: 1px solid var(--borde-sutil);
+    color: var(--texto-terciario);
+  }
+
+  .lista-pistas-cabecera .lista-pistas-duracion {
+    display: inline-flex;
+  }
+
+  .lista-pistas-fila:not(.lista-pistas-cabecera):hover {
+    background: var(--fondo-elevada);
+  }
+
+  .lista-pistas-num {
+    text-align: center;
+  }
+
+  .lista-pistas-portada {
+    width: var(--espacio-8);
+    height: var(--espacio-8);
+    border-radius: var(--radio-sm);
+  }
+
+  .lista-pistas-titulo {
+    gap: var(--espacio-3);
+  }
+}

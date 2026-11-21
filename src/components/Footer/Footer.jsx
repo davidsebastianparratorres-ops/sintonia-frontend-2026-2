@@ -52,7 +52,7 @@ const Footer = ({ textos, idioma }) => {
                     .filter(([id]) => DESTINOS[id])
                     .map(([id, etiqueta]) => (
                       <li key={id}>
-                        <Link to={DESTINOS[id]}>{etiqueta}</Link>
+                        <Link className="cuerpo-p" to={DESTINOS[id]}>{etiqueta}</Link>
                       </li>
                     ))}
                 </ul>

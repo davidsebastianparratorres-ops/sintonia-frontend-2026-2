@@ -4,7 +4,7 @@ export default function InvitacionRegistro({textos, abrirCuenta }) {
   return (
     <section className="ancho-home registro-sintonia">
       <div>
-        <h2>
+        <h2 className="titular-h2">
           {inv?.titulo}
         </h2>
         <p>

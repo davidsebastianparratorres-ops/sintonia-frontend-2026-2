@@ -1,4 +1,4 @@
-import { formatearDuracion } from "../../utils/portada.js";
+import { formatearDuracion } from "../../utils/formato.js";
 import "./ListaCanciones.css";
 
 export default function ListaCanciones({ canciones, titulo }) {
@@ -6,14 +6,14 @@ export default function ListaCanciones({ canciones, titulo }) {
 
   return (
     <section className="seccion-canciones">
-      <h2>{titulo}</h2>
+      <h2 className="titular-h2">{titulo}</h2>
       <ol className="lista-canciones">
         {canciones.map((pista, indice) => (
-          <li key={pista.id} className="item-cancion">
+          <li key={pista.id} className="item-cancion cuerpo-m-fuerte">
             <span className="numero-cancion">{indice + 1}</span>
             <div className="info-cancion">
               <span className="titulo-cancion">{pista.titulo}</span>
-              <span className="artista-cancion">{pista.artista?.nombre}</span>
+              <span className="artista-cancion cuerpo-p">{pista.artista?.nombre}</span>
             </div>
             <span className="duracion-cancion">
               {formatearDuracion(pista.duracionSeg)}

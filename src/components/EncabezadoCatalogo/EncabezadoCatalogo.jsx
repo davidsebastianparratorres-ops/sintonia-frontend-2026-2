@@ -8,17 +8,17 @@ export default function EncabezadoCatalogo({ generoSeleccionado, textos }) {
       {generoSeleccionado ? (
         <>
           <h1>{generoSeleccionado.nombre}</h1>
-          <p className="descripcion-genero">{generoSeleccionado.descripcion}</p>
+          <p className="cuerpo-m">{generoSeleccionado.descripcion}</p>
         </>
       ) : (
         <>
           <h1>
-            <span className="titulo-catalogo-mobile">{tituloMovil}</span>
+            <span className="titulo-catalogo-mobile ">{tituloMovil}</span>
             <span className="titulo-catalogo-completo">
               {tCat?.encabezado?.titulo }
             </span>
           </h1>
-          <p>{tCat?.encabezado?.subtitulo}</p>
+          <p className="cuerpo-m">{tCat?.encabezado?.subtitulo}</p>
         </>
       )}
     </header>

@@ -1,4 +1,4 @@
-import { useOutletContext, useSearchParams } from "react-router-dom";
+import { useNavigate, useOutletContext, useSearchParams } from "react-router-dom";
 import EncabezadoCatalogo from "../../components/EncabezadoCatalogo/EncabezadoCatalogo.jsx";
 import SeccionGeneros from "../../components/SeccionGeneros/SeccionGeneros.jsx";
 import SeccionAlbumes from "../../components/SeccionesAlbumes/SeccionesAlbumes.jsx";
@@ -10,8 +10,15 @@ import { useCatalogo } from "../../hooks/useCatalogo.js";
 import "./Catalog.css";
 
 export default function Catalogo() {
-  // 1. Obtiene los textos y el manejador del modal desde LayoutPublico
-  const { datos, abrirAlbum } = useOutletContext();
+  // 1. Obtiene los textos desde LayoutPublico
+  const { datos } = useOutletContext();
+  const navigate = useNavigate();
+
+  const seleccionarAlbum = (album) => {
+    if (typeof album?.id === "string" && album.id) {
+      navigate(`/albumes/${encodeURIComponent(album.id)}`);
+    }
+  };
 
   // 2. Sincroniza el filtro de género directamente con la URL (?genero=...)
   const [searchParams, setSearchParams] = useSearchParams();
@@ -81,7 +88,7 @@ export default function Catalogo() {
 
       {generoActivo && artistas.length > 0 && (
         <section className="seccion-artistas-catalogo">
-          <h2>{tCat?.genero?.artistas?.titulo}</h2>
+          <h2 className="titular-h2">{tCat?.genero?.artistas?.titulo}</h2>
           <div className="grid-artistas">
             {artistas.map((artista) => (
               <TarjetaArtista
@@ -102,7 +109,7 @@ export default function Catalogo() {
             titulo={tituloAlbumes}
             filaHorizontal
             mostrarEnlaceDescubrirMas={false}
-            onSeleccionar={abrirAlbum}
+            onSeleccionar={seleccionarAlbum}
           />
         ) : (
           !cargando &&
@@ -121,7 +128,7 @@ export default function Catalogo() {
           error={errorGenerales}
           titulo={tituloAlbumes}
           filaHorizontal
-          onSeleccionar={abrirAlbum}
+          onSeleccionar={seleccionarAlbum}
         />
       )}
 

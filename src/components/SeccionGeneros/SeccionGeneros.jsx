@@ -29,7 +29,7 @@ export default function SeccionGeneros({
       aria-labelledby="generos-titulo"
     >
       <div className="titulo-seccion">
-        <h2 id="generos-titulo">{titulo}</h2>
+        <h2 id="generos-titulo" className="titular-h2">{titulo}</h2>
 
         {!esCatalogo && textoEnlace && (
           <Link className="enlace-home" to="/catalogo">

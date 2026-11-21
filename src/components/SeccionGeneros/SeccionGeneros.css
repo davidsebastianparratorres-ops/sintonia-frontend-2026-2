@@ -1,10 +1,6 @@
 .seccion-generos {
   padding-bottom: 48px;
 }
-.seccion-generos h2 {
-  font-family: var(--fuente-syne), sans-serif;
-  font-weight: 700;
-}
 .generos-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -12,6 +8,14 @@
   max-width: 1100px;
 }
 @media (max-width: 640px) {
+  .seccion-generos .titulo-seccion h2 {
+    font-family: var(--fuente-syne);
+    font-weight: var(--peso-titulo);
+    font-size: var(--tipo-h3-size);
+    line-height: var(--tipo-h3-line);
+    letter-spacing: var(--tipo-h3-track);
+  }
+
   .generos-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;

@@ -105,6 +105,11 @@
   flex-shrink: 0;
 }
 
+.navbar-icono:hover,
+.navbar-icono:focus-visible{
+  background: var(--fondo-sutil);
+}
+
 .navbar-icono:disabled {
   opacity: 0.5;
   cursor: wait;
