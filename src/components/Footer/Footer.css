@@ -76,7 +76,6 @@
 }
 .footer-enlaces a {
   color: var(--texto-principal);
-  font-weight: 500;
   overflow-wrap: anywhere;
 }
 

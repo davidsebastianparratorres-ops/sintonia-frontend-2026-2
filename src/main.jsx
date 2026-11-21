@@ -9,6 +9,7 @@ import "./styles/global.css";
 import LayoutPublico from "./layouts/LayoutPublico.jsx";
 import Home from "./pages/Home/Home.jsx";
 import Catalogo from "./pages/Catalog/Catalog.jsx";
+import DetalleAlbum from "./pages/DetalleAlbum/DetalleAlbum.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -17,6 +18,10 @@ createRoot(document.getElementById("root")).render(
         <Route element={<LayoutPublico />}>
           <Route path="/" element={<Home />} />
           <Route path="/catalogo" element={<Catalogo />} />
+          <Route
+            path="/albumes/:id"
+            element={<DetalleAlbum />}
+          />
         </Route>
 
         {/* Redirige cualquier ruta desconocida al inicio */}

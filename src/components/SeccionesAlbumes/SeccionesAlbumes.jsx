@@ -26,7 +26,7 @@ export default function SeccionAlbumes({
       aria-busy={cargando}
     >
       <div className="titulo-seccion">
-        <h2 id="albumes-titulo">{tituloFinal}</h2>
+        <h2 id="albumes-titulo" className="titular-h2">{tituloFinal}</h2>
         {mostrarEnlaceDescubrirMas && destacados?.enlaces?.descubrirMas && (
           <Link className="enlace-home" to="/catalogo">
             {destacados.enlaces.descubrirMas} <Flecha />

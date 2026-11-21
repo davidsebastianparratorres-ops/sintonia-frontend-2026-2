@@ -1,4 +1,4 @@
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { useCatalogo } from "../../hooks/useCatalogo.js";
 import { useGeneros } from "../../hooks/useGeneros.js";
 
@@ -9,13 +9,20 @@ import InvitacionRegistro from "../../components/InvitacionRegistro/InvitacionRe
 
 export default function Home() {
   // Recibe los datos globales que ahora viven en LayoutPublico
-  const { datos, abrirAlbum, abrirCuenta } = useOutletContext();
+  const { datos, abrirCuenta } = useOutletContext();
+  const navigate = useNavigate();
+
+  const seleccionarAlbum = (album) => {
+    if (typeof album?.id === "string" && album.id) {
+      navigate(`/albumes/${encodeURIComponent(album.id)}`);
+    }
+  };
 
   const { albumes, cargando: cargandoAlbumes, error: errorAlbumes } = useCatalogo();
   const { generos } = useGeneros();
 
   return (
-    <>
+    <main className="pagina-inicio">
       <HeroSintonia
         {...datos}
         totalGeneros={generos.length}
@@ -27,7 +34,7 @@ export default function Home() {
         cargando={cargandoAlbumes}
         error={errorAlbumes}
         filaHorizontalMovil
-        onSeleccionar={abrirAlbum}
+        onSeleccionar={seleccionarAlbum}
       />
       <SeccionGeneros
         {...datos}
@@ -37,6 +44,6 @@ export default function Home() {
         {...datos}
         abrirCuenta={abrirCuenta}
       />
-    </>
+    </main>
   );
 }

@@ -9,7 +9,6 @@ body {
   color: var(--texto-principal);
 }
 h1,
-h2,
 h3 {
   line-height: 1.2;
   overflow-wrap: anywhere;
@@ -98,9 +97,6 @@ select {
   gap: var(--espacio-4);
   margin-bottom: var(--espacio-6);
 }
-.titulo-seccion h2 {
-  font-size: var(--tipo-h2-size);
-}
 .enlace-home {
   color: var(--texto-marca) !important;
   display: inline-flex;
@@ -127,8 +123,8 @@ select {
   .titulo-seccion {
     gap: var(--espacio-3);
   }
-  .titulo-seccion h2 {
-    font-size: 1.3125rem;
+  .pagina-inicio .enlace-home .icono-flecha {
+    display: none;
   }
   .enlace-home {
     font-size: var(--tipo-nota-size);
@@ -146,7 +142,6 @@ select {
 }
 .sintonia,
 .sintonia h1,
-.sintonia h2,
 .sintonia h3 {
   font-family: var(--fuente-syne);
 }

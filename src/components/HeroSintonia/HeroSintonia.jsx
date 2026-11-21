@@ -16,7 +16,7 @@ export default function HeroSintonia({ textos, totalGeneros, abrirCuenta }) {
             </h1>
         
 
-        <p>{hero?.subtitulo}</p>
+        <p className="cuerpo-g">{hero?.subtitulo}</p>
 
         <div className="grupo-botones">
           <button

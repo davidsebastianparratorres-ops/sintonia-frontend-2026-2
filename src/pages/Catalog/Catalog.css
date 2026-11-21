@@ -3,6 +3,7 @@
 /* Contenedor principal de la página */
 .pagina-catalogo {
   padding-block: var(--espacio-6) var(--espacio-12);
+  margin-block: 8px;
   background-color: var(--fondo-base);
   color: var(--texto-principal);
   font-family: var(--fuente-inter);
@@ -69,10 +70,6 @@
 }
 
 .seccion-artistas-catalogo h2 {
-  font-family: var(--fuente-syne);
-  font-weight: 700;
-  font-size: 1.25rem;
-  line-height: 1.625rem;
   margin-bottom: var(--espacio-4);
   color: var(--texto-principal);
 }
@@ -157,10 +154,6 @@
 }
 
 .seccion-canciones h2 {
-  font-family: var(--fuente-syne);
-  font-weight: 700;
-  font-size: 1.25rem;
-  line-height: 1.625rem;
   margin-bottom: var(--espacio-4);
   color: var(--texto-principal);
 }
@@ -232,6 +225,7 @@
     background: var(--fondo-superficie);
     width: min(1280px, calc(100% - 160px));
     margin-inline: auto;
+    
   }
 
   .encabezado-catalogo h1 {
@@ -286,15 +280,25 @@
 }
 
 @media (max-width: 640px) {
+  .pagina-catalogo .enlace-home {
+    display: none;
+  }
+
   .grid-artistas {
     column-gap: 16px;
     row-gap: 16px;
   }
+
+  
 }
 
 @media (min-width: 1000px) {
   .pagina-catalogo {
     padding-block: var(--espacio-12) var(--espacio-16);
+    padding-inline: 28px;
+    gap: 28px;
+
+
   }
 
   .encabezado-catalogo {

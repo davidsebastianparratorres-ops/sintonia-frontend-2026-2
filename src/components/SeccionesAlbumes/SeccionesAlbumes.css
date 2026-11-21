@@ -16,10 +16,6 @@
   height: 258px;
 }
 
-.seccion-albumes h2 {
-  font-family: var(--fuente-syne), sans-serif;
-  font-weight: 700;
-}
 
 @media (max-width: 1000px) {
   .albumes-grid {
@@ -27,6 +23,16 @@
   }
 }
 @media (max-width: 640px) {
+  .seccion-albumes .titulo-seccion h2 {
+    font-family: var(--fuente-syne);
+    font-weight: var(--peso-titulo);
+    font-size: var(--tipo-h3-size);
+    line-height: var(--tipo-h3-line);
+    letter-spacing: var(--tipo-h3-track);
+  }
+
+  
+  
   .albumes-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
