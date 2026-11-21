@@ -1,7 +1,7 @@
 import PortadaAlbum from "../PortadaAlbum/PortadaAlbum.jsx";
 import "./TarjetaAlbum.css";
 
-export default function TarjetaAlbum({ album, onSeleccionar, indice = 0 }) {
+export default function TarjetaAlbum({ album, onSeleccionar, textoSecundario }) {
   return (
     <button
       className="tarjeta-album"
@@ -14,7 +14,7 @@ export default function TarjetaAlbum({ album, onSeleccionar, indice = 0 }) {
     >
       <PortadaAlbum portada={album.portada}/>
       <span>{album.titulo || album.nombre}</span>
-      <small>{album.artista?.nombre || album.artista}</small>
+      <small>{textoSecundario ?? album.artista?.nombre ?? album.artista}</small>
     </button>
   );
 }

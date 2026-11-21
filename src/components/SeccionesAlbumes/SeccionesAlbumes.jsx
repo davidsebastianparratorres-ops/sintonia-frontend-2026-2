@@ -13,6 +13,7 @@ export default function SeccionAlbumes({
   filaHorizontalMovil = false,
   mostrarEnlaceDescubrirMas = true,
   onSeleccionar,
+  textoSecundarioAlbum,
 }) {
   const destacados = textos?.paginas?.inicioPublico?.destacados;
   const tituloFinal = titulo || destacados?.titulo;
@@ -50,7 +51,16 @@ export default function SeccionAlbumes({
         className={`albumes-grid${filaHorizontal ? " albumes-grid-fila" : ""}${filaHorizontalMovil ? " albumes-grid-fila-movil" : ""}`}
       >
         {albumes.map((album) => (
-          <TarjetaAlbum key={album.id} album={album} onSeleccionar={onSeleccionar} />
+          <TarjetaAlbum
+            key={album.id}
+            album={album}
+            onSeleccionar={onSeleccionar}
+            textoSecundario={
+              typeof textoSecundarioAlbum === "function"
+                ? textoSecundarioAlbum(album)
+                : undefined
+            }
+          />
         ))}
       </div>
 
