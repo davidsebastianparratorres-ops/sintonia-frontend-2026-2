@@ -1,4 +1,11 @@
 const TRAZOS = {
+  inicio: (
+    <>
+      <path d="M3 10.5 12 3l9 7.5" />
+      <path d="M5 9.5V19a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5" />
+      <path d="M9.5 20v-6h5v6" />
+    </>
+  ),
   buscar: (
     <>
       <circle cx="10.5" cy="10.5" r="6.5" />
@@ -28,8 +35,27 @@ const TRAZOS = {
       <path d="M12 10v4" />
     </>
   ),
- 
- 
+  salir: (
+    <>
+      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+      <path d="m16 17 5-5-5-5" />
+      <path d="M21 12H9" />
+    </>
+  ),
+  ojo: (
+    <>
+      <path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6-10-6-10-6Z" />
+      <circle cx="12" cy="12" r="3" />
+    </>
+  ),
+  "ojo-cerrado": (
+    <>
+      <path d="m3 3 18 18" />
+      <path d="M10.6 6.2A10.8 10.8 0 0 1 12 6c6.4 0 10 6 10 6a17 17 0 0 1-3.1 3.6" />
+      <path d="M6.2 6.2C3.5 8 2 12 2 12s3.6 6 10 6c1.4 0 2.7-.3 3.8-.8" />
+      <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" />
+    </>
+  ),
 };
 
 export default function Icono({ nombre }) {

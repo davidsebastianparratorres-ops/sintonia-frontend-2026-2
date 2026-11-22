@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { useTextos } from "../hooks/useTextos.js";
-import { useDetalle } from "../hooks/useDetalle.js";
-import { leerCookie } from "../services/cookies.js";
+import { useTextos } from "../../hooks/useTextos.js";
+import { useDetalle } from "../../hooks/useDetalle.js";
+import { leerCookie } from "../../services/cookies.js";
 
-import Navbar from "../components/Navbar/Navbar.jsx";
-import Footer from "../components/Footer/Footer.jsx";
-import BannerCookies from "../components/BannerCookies/BannerCookies.jsx";
+import Navbar from "../../components/Navbar/Navbar.jsx";
+import Footer from "../../components/Footer/Footer.jsx";
+import BannerCookies from "../../components/BannerCookies/BannerCookies.jsx";
 import "./LayoutPublico.css";
 
 export default function LayoutPublico() {
