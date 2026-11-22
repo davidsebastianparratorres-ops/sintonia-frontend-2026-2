@@ -1,0 +1,186 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.login-titulo {
+  margin: 0;
+  color: var(--texto-principal);
+}
+.login-subtitulo {
+  margin: var(--espacio-4) 0 var(--espacio-6);
+  color: var(--texto-secundario);
+}
+
+/* Alerta general */
+.login-alerta-zona:empty {
+  display: none;
+}
+.login-alerta {
+  margin-bottom: var(--espacio-4);
+  padding: var(--espacio-3) var(--espacio-4);
+  border: var(--boton-borde) solid var(--estado-error);
+  border-radius: var(--radio-md);
+  background: var(--estado-error-suave);
+  color: var(--texto-principal);
+}
+.login-alerta p {
+  margin: 0;
+}
+.login-alerta-titulo {
+  color: var(--estado-error);
+}
+.login-alerta-boton {
+  margin-top: var(--espacio-2);
+  padding: var(--espacio-1) var(--espacio-3);
+  border: var(--boton-borde) solid var(--estado-error);
+  border-radius: var(--radio-completo);
+  background: transparent;
+  color: var(--texto-principal);
+  cursor: pointer;
+}
+.login-alerta-boton:hover:not(:disabled) {
+  background: var(--estado-error-suave);
+}
+
+/* Campos */
+.login-campo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-2);
+  margin-bottom: var(--espacio-4);
+  
+}
+.login-campo label {
+  color: var(--texto-principal);
+}
+.login-input-envoltura {
+  position: relative;
+}
+.login-input {
+  width: 100%;
+  height: var(--boton-alto-g);
+  padding: 0 var(--espacio-4);
+  border: var(--boton-borde) solid var(--borde-fuerte);
+  border-radius: var(--radio-md);
+  background: var(--fondo-superficie);
+  color: var(--texto-principal);
+}
+.login-input::placeholder {
+  color: var(--texto-terciario);
+}
+.login-input-clave {
+  padding-right: var(--espacio-12);
+}
+.login-input:focus-visible {
+  outline: 2px solid var(--color-foco);
+  outline-offset: 2px;
+}
+.login-input[aria-invalid="true"] {
+  border-color: var(--estado-error);
+}
+.login-error-campo {
+  margin: 0;
+  color: var(--estado-error);
+}
+.login-ojo {
+  position: absolute;
+  top: 50%;
+  right: var(--espacio-2);
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--boton-alto-tactil);
+  height: var(--boton-alto-tactil);
+  border: 0;
+  border-radius: var(--radio-md);
+  background: transparent;
+  color: var(--texto-secundario);
+  cursor: pointer;
+}
+.login-ojo:hover {
+  color: var(--texto-principal);
+}
+.login-ojo:focus-visible {
+  outline: 2px solid var(--color-foco);
+  outline-offset: 2px;
+}
+
+/* Opciones */
+.login-opciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-2) var(--espacio-4);
+  margin-bottom: var(--espacio-5);
+}
+.login-check {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  color: var(--texto-principal);
+  cursor: pointer;
+}
+.login-check input {
+  width: var(--espacio-5);
+  height: var(--espacio-5);
+  margin: 0;
+  accent-color: var(--marca-primario);
+  cursor: pointer;
+}
+.login-check input:focus-visible {
+  outline: 2px solid var(--color-foco);
+  outline-offset: 2px;
+}
+.login-enlace {
+  color: var(--texto-marca);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.login-enlace:hover {
+  color: var(--marca-primario-hover);
+}
+.login-enlace:focus-visible {
+  outline: 2px solid var(--color-foco);
+  outline-offset: 3px;
+  border-radius: var(--radio-sm);
+}
+
+/* Botón principal */
+.login-enviar {
+  width: 100%;
+  height: var(--boton-alto-g);
+  border: 0;
+  border-radius: var(--boton-radio);
+  background: var(--boton-primario-fondo);
+  color: var(--boton-primario-texto);
+  cursor: pointer;
+}
+.login-enviar:hover:not(:disabled) {
+  background: var(--boton-primario-fondo-hover);
+}
+.login-enviar:active:not(:disabled) {
+  background: var(--boton-primario-fondo-presionado);
+}
+.login-enviar:focus-visible {
+  outline: 2px solid var(--color-foco);
+  outline-offset: 3px;
+}
+.login-enviar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.login-pie {
+  margin: var(--espacio-4) 0 0;
+  text-align: center;
+  color: var(--texto-secundario);
+}
+
+@media (max-width: 768px) {
+  .login-titulo {
+    font-size: var(--tipo-h1-size);
+  }
+}

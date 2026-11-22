@@ -96,7 +96,7 @@
   height: var(--boton-alto-tactil);
   width: var(--boton-alto-tactil);
   padding: 0;
-  border: 1px solid transparent;
+  border: 0;
   border-radius: 50%;
   color: var(--texto-principal);
   background: transparent;
@@ -108,6 +108,19 @@
 .navbar-icono:hover,
 .navbar-icono:focus-visible{
   background: var(--fondo-sutil);
+}
+
+.navbar-icono-abierto {
+  background: var(--fondo-elevada);
+}
+
+.navbar-icono-abierto:hover,
+.navbar-icono-abierto:focus-visible {
+  background: var(--fondo-sutil);
+}
+
+.navbar-buscar-movil {
+  background: transparent;
 }
 
 .navbar-icono:disabled {
@@ -147,6 +160,12 @@
   color: var(--texto-secundario);
   font-size: 0.875rem;
   font-weight: 500;
+}
+.navbar-enlaces a svg {
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  margin-right: var(--espacio-3);
 }
 .navbar-enlaces a:hover,
 .navbar-enlaces a[aria-current="page"] {
@@ -260,6 +279,147 @@
   border-top: 1px solid var(--borde-sutil);
 }
 
+.navbar-sesion-conectada {
+  padding: 0;
+  border-top: 0;
+}
+
+.navbar-sesion-autenticada {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-3);
+  width: 100%;
+  padding: var(--espacio-4);
+  border-top: 1px solid var(--borde-sutil);
+  background: var(--fondo-superficie);
+}
+
+.navbar-sesion-identidad {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-3);
+  min-width: 0;
+}
+
+.navbar-avatar-movil {
+  display: grid;
+  flex: 0 0 40px;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radio-completo);
+  background: var(--marca-secundario);
+  color: var(--fijo-blanco);
+}
+
+.navbar-sesion-datos,
+.navbar-menu-usuario-datos {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.navbar-sesion-datos > :first-child,
+.navbar-menu-usuario-datos > :first-child {
+  color: var(--texto-principal);
+}
+
+.navbar-sesion-datos > :last-child,
+.navbar-menu-usuario-datos > :last-child {
+  color: var(--texto-secundario);
+}
+
+.navbar-cerrar-sesion-movil {
+  flex: 0 0 auto;
+  padding: var(--espacio-2) var(--espacio-4);
+  border: 1px solid var(--borde-fuerte);
+  border-radius: var(--radio-completo);
+  background: transparent;
+  color: var(--texto-principal);
+}
+
+.navbar-cerrar-sesion-movil:hover{
+  background: var(--fondo-elevada);
+}
+
+.navbar-perfil {
+  display: none;
+  position: relative;
+}
+
+.navbar-avatar-desktop {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radio-completo);
+  background: var(--marca-primario);
+  color: var(--texto-sobre-marca);
+}
+
+.navbar-menu-usuario {
+  position: absolute;
+  z-index: 15;
+  top: calc(100% + var(--espacio-2));
+  right: 0;
+  width: 280px;
+  padding: var(--espacio-4);
+  border: 1px solid var(--borde-sutil);
+  border-radius: var(--radio-lg);
+  background: var(--fondo-elevada);
+  box-shadow: var(--sombra-flotante);
+}
+
+.navbar-menu-usuario-cabecera {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-3);
+  min-width: 0;
+}
+
+.navbar-avatar-menu {
+  display: grid;
+  flex: 0 0 40px;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radio-completo);
+  background: var(--marca-primario);
+  color: var(--texto-sobre-marca);
+}
+
+.navbar-menu-usuario-separador {
+  height: 1px;
+  margin-block: var(--espacio-4);
+  background: var(--borde-sutil);
+}
+
+.navbar-menu-usuario-salir {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-3);
+  width: 100%;
+  padding: var(--espacio-3);
+  border: 0;
+  border-radius: var(--radio-md);
+  background: transparent;
+  color: var(--texto-principal);
+  text-align: left;
+}
+
+.navbar-menu-usuario-salir:hover,
+.navbar-menu-usuario-salir:focus-visible {
+  background: var(--fondo-sutil);
+}
+
+.navbar-menu-usuario-salir svg {
+  width: 20px;
+  height: 20px;
+}
+
 .navbar-invitado-ingresar,
 .navbar-invitado-crear-cuenta {
   width: 100%;
@@ -274,7 +434,6 @@
 .navbar-ingresar-movil {
   white-space: nowrap;
 }
-
 .navbar-utilidad-fila {
   display: flex;
   align-items: center;
@@ -322,6 +481,9 @@
     background: transparent;
     white-space: nowrap;
   }
+  .navbar-enlaces a svg {
+    display: none;
+  }
   .navbar-enlaces a:hover,
   .navbar-enlaces a[aria-current="page"] {
     background: transparent;
@@ -360,6 +522,15 @@
 
   .navbar-sesion {
     display: contents;
+  }
+
+  .navbar-sesion-autenticada {
+    display: none;
+  }
+
+  .navbar-perfil {
+    display: block;
+    margin-left: auto;
   }
 
   .navbar-utilidad-fila {
