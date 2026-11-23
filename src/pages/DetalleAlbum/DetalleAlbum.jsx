@@ -19,7 +19,8 @@ export default function DetalleAlbum({ textos: textosProp, idioma: idiomaProp })
   const datos = contexto?.datos ?? {};
   const textos = textosProp ?? datos.textos;
   const idioma = idiomaProp ?? contexto?.idioma ?? "es";
-  const { album, cargando, error, noEncontrado } = useAlbum(id);
+  const { album, cargando, error, noEncontrado, recargar } = useAlbum(id);
+  const errorConexion = textos?.errores?.conexion;
 
   // Todos los textos salen de la API: textos.paginas.album
   const t = textos?.paginas?.album;
@@ -87,6 +88,16 @@ export default function DetalleAlbum({ textos: textosProp, idioma: idiomaProp })
         <p role="alert" className="texto-vacio">
           {textos?.estados?.error?.titulo}
         </p>
+        {errorConexion?.texto && (
+          <p className="cuerpo-p">{errorConexion.texto}</p>
+        )}
+        <button
+          type="button"
+          className="detalle-album-reintentar"
+          onClick={recargar}
+        >
+          {errorConexion?.botones?.reintentar}
+        </button>
       </main>
     );
   }

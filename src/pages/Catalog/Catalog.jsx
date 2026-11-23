@@ -26,14 +26,22 @@ export default function Catalogo() {
 
   // 3. Carga los géneros por sí mismo (antes venían por props desde Home)
   const { generos } = useGeneros();
-  const { detalle, cargando, error } = useGenero(generoActivo);
+  const {
+    detalle,
+    cargando,
+    error,
+    recargar: recargarGenero,
+  } = useGenero(generoActivo);
   const {
     albumes: albumesGenerales,
     cargando: cargandoGenerales,
     error: errorGenerales,
+    recargar: recargarCatalogo,
   } = useCatalogo({ limite: 24 });
 
+  const textos = datos?.textos;
   const tCat = datos?.textos?.paginas?.catalogo;
+  const errorConexion = textos?.errores?.conexion;
 
   // Mientras carga el detalle, usamos lo básico que ya viene en la lista de géneros
   const generoSeleccionado =
@@ -81,8 +89,22 @@ export default function Catalogo() {
       />
 
       {generoActivo && error && (
-        <p role="alert" className="catalogo-error">
-          {tCat?.error?.texto}
+        <div role="alert" className="catalogo-error">
+          <p>{textos?.estados?.error?.titulo}</p>
+          {errorConexion?.texto && <p>{errorConexion.texto}</p>}
+          <button
+            type="button"
+            className="seccion-albumes-reintentar"
+            onClick={recargarGenero}
+          >
+            {errorConexion?.botones?.reintentar}
+          </button>
+        </div>
+      )}
+
+      {generoActivo && cargando && (
+        <p role="status" className="catalogo-cargando">
+          {textos?.estados?.cargando?.titulo}
         </p>
       )}
 
@@ -126,6 +148,7 @@ export default function Catalogo() {
           albumes={albumesGenerales}
           cargando={cargandoGenerales}
           error={errorGenerales}
+          recargar={recargarCatalogo}
           titulo={tituloAlbumes}
           filaHorizontal
           onSeleccionar={seleccionarAlbum}

@@ -23,7 +23,7 @@ Configura la URL base de la API copiando `.env.example` a `.env`:
 VITE_API_BASE_URL=https://yanethm-sintonia-api.fly.dev/api/v1
 ```
 
-Vite carga esta variable al iniciar; reinicia el servidor de desarrollo si la cambias. Si no está definida, la aplicación conserva la URL de API actual.
+Vite carga esta variable al iniciar; reinicia el servidor de desarrollo si la cambias.
 
 Inicia el servidor de desarrollo:
 

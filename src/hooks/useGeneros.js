@@ -11,7 +11,9 @@ export function useGeneros() {
 
     async function cargar() {
       try {
-        const respuesta = await fetch(`${API_BASE_URL}/generos`);
+        const respuesta = await fetch(`${API_BASE_URL}/generos`, {
+          credentials: "include",
+        });
         if (!respuesta.ok) throw new Error(respuesta.status);
         const json = await respuesta.json();
         if (activo) setGeneros(json.datos ?? []);

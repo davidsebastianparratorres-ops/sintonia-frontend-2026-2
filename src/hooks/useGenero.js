@@ -1,37 +1,45 @@
 // hooks/useGenero.js
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import API_BASE_URL from "../config/api";
 
 export function useGenero(id) {
   const [detalle, setDetalle] = useState(null);
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState(false);
+  const [intento, setIntento] = useState(0);
 
   useEffect(() => {
     if (!id) {
       setDetalle(null);
+      setCargando(false);
+      setError(false);
       return;
     }
     const controlador = new AbortController();
     setCargando(true);
     setError(false);
 
-    fetch(`${API_BASE_URL}/generos/${id}`, { signal: controlador.signal })
-      .then((r) => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json();
-      })
-      .then((json) => {
-        const datos = json?.datos ?? json;
-        setDetalle(datos);
-      })
-      .catch((e) => {
+    async function cargar() {
+      try {
+        const respuesta = await fetch(`${API_BASE_URL}/generos/${id}`, {
+          signal: controlador.signal,
+        });
+        if (!respuesta.ok) throw new Error(`HTTP ${respuesta.status}`);
+        const json = await respuesta.json();
+        setDetalle(json?.datos ?? json);
+      } catch (e) {
         if (e.name !== "AbortError") setError(true);
-      })
-      .finally(() => setCargando(false));
+      } finally {
+        if (!controlador.signal.aborted) setCargando(false);
+      }
+    }
+
+    cargar();
 
     return () => controlador.abort();
-  }, [id]);
+  }, [id, intento]);
 
-  return { detalle, cargando, error };
+  const recargar = useCallback(() => setIntento((n) => n + 1), []);
+
+  return { detalle, cargando, error, recargar };
 }

@@ -14,10 +14,12 @@ export default function SeccionAlbumes({
   mostrarEnlaceDescubrirMas = true,
   onSeleccionar,
   textoSecundarioAlbum,
+  recargar,
 }) {
   const destacados = textos?.paginas?.inicioPublico?.destacados;
   const tituloFinal = titulo || destacados?.titulo;
   const vacio = !cargando && !error && albumes.length === 0;
+  const errorConexion = textos?.errores?.conexion;
 
   return (
     <section
@@ -42,9 +44,19 @@ export default function SeccionAlbumes({
       )}
 
       {error && (
-        <p role="alert" className="texto-vacio">
-          {textos?.estados?.error?.titulo}
-        </p>
+        <div role="alert" className="texto-vacio">
+          <p>{textos?.estados?.error?.titulo}</p>
+          {errorConexion?.texto && <p>{errorConexion.texto}</p>}
+          {recargar && (
+            <button
+              type="button"
+              className="seccion-albumes-reintentar"
+              onClick={recargar}
+            >
+              {errorConexion?.botones?.reintentar}
+            </button>
+          )}
+        </div>
       )}
 
       <div

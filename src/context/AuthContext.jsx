@@ -1,36 +1,70 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import {
-  guardarSesion,
-  leerSesion,
-  limpiarSesion,
+  limpiarSesionAnterior,
+  obtenerSesion,
+  postCerrarSesion,
   postIniciarSesion,
 } from "../services/auth.js";
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [sesion, setSesion] = useState(() => leerSesion());
+  const [sesion, setSesion] = useState(null);
+  const [cargandoSesion, setCargandoSesion] = useState(true);
+  const sesionModificada = useRef(false);
 
-  async function iniciarSesion({ correo, clave, recordar }) {
-    const datos = await postIniciarSesion({ correo, clave });
-    const nuevaSesion = {
-      usuario: datos.usuario,
-      token: datos.token,
+  useEffect(() => {
+    let activa = true;
+
+    try {
+      limpiarSesionAnterior();
+    } catch (error) {
+      console.error("No se pudo limpiar la sesión local anterior.", error);
+    }
+
+    obtenerSesion()
+      .then((usuario) => {
+        if (activa && !sesionModificada.current) {
+          setSesion(usuario ? { usuario } : null);
+        }
+      })
+      .catch((error) => {
+        if (activa && !sesionModificada.current) {
+          console.error("No se pudo restaurar la sesión.", error);
+          setSesion(null);
+        }
+      })
+      .finally(() => {
+        if (activa) setCargandoSesion(false);
+      });
+
+    return () => {
+      activa = false;
     };
-    guardarSesion(nuevaSesion, recordar);
+  }, []);
+
+  async function iniciarSesion({ correo, clave }) {
+    const datos = await postIniciarSesion({ correo, clave });
+    const nuevaSesion = { usuario: datos.usuario };
+    sesionModificada.current = true;
     setSesion(nuevaSesion);
     return nuevaSesion;
   }
 
-  function cerrarSesion() {
-    limpiarSesion();
-    setSesion(null);
+  async function cerrarSesion() {
+    try {
+      await postCerrarSesion();
+      sesionModificada.current = true;
+      setSesion(null);
+    } catch (error) {
+      console.error("No se pudo cerrar la sesión en el servidor.", error);
+    }
   }
 
   const valor = {
     usuario: sesion?.usuario ?? null,
-    token: sesion?.token ?? null,
-    estaAutenticado: Boolean(sesion?.token),
+    estaAutenticado: Boolean(sesion?.usuario),
+    cargandoSesion,
     iniciarSesion,
     cerrarSesion,
   };

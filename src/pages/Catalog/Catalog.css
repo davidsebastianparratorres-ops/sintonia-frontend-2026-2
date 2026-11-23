@@ -148,6 +148,20 @@
   margin: 0;
 }
 
+.catalogo-error,
+.catalogo-cargando {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--espacio-2);
+  margin: 0 0 var(--espacio-6);
+  color: var(--texto-secundario);
+}
+
+.catalogo-error p {
+  margin: 0;
+}
+
 .seccion-canciones {
   margin-top: var(--espacio-8);
   margin-bottom: var(--espacio-12);

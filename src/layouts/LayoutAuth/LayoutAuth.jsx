@@ -37,7 +37,7 @@ const PORTADAS_COLLAGE = [
 ];
 
 const LayoutAuth = () => {
-  const { estaAutenticado } = useAuth();
+  const { estaAutenticado, cargandoSesion } = useAuth();
   const idioma = leerCookie("idioma") === "en" ? "en" : "es";
   const datos = useTextos(idioma);
 
@@ -45,6 +45,7 @@ const LayoutAuth = () => {
     document.documentElement.lang = idioma;
   }, [idioma]);
 
+  if (cargandoSesion) return null;
   if (estaAutenticado) return <Navigate to="/" replace />;
 
   const textos = datos?.textos;

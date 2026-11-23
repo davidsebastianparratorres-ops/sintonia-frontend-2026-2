@@ -1,42 +1,26 @@
 import API_BASE_URL from "../config/api.js";
 
-const CLAVE_SESION = "sintonia_sesion";
+const CLAVE_SESION_ANTERIOR = "sintonia_sesion";
 
-// --- PERSISTENCIA (localStorage vs sessionStorage) ---
-
-export function guardarSesion({ usuario, token }, recordar = true) {
-  limpiarSesion();
-  const almacenamiento = recordar ? localStorage : sessionStorage;
-  almacenamiento.setItem(CLAVE_SESION, JSON.stringify({ usuario, token }));
-}
-
-export function leerSesion() {
-  const raw =
-    localStorage.getItem(CLAVE_SESION) || sessionStorage.getItem(CLAVE_SESION);
-  if (!raw) return null;
-
-  try {
-    return JSON.parse(raw);
-  } catch {
-    limpiarSesion();
-    return null;
-  }
-}
-
-export function limpiarSesion() {
-  localStorage.removeItem(CLAVE_SESION);
-  sessionStorage.removeItem(CLAVE_SESION);
+export function limpiarSesionAnterior() {
+  localStorage.removeItem(CLAVE_SESION_ANTERIOR);
+  sessionStorage.removeItem(CLAVE_SESION_ANTERIOR);
 }
 
 // --- HELPER DE PETICIONES ---
 
-async function peticionAuth(ruta, cuerpo) {
+async function peticionAuth(ruta, { method = "POST", cuerpo } = {}) {
   let respuesta;
   try {
     respuesta = await fetch(`${API_BASE_URL}${ruta}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(cuerpo),
+      method,
+      credentials: "include",
+      ...(cuerpo === undefined
+        ? {}
+        : {
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(cuerpo),
+          }),
     });
   } catch {
     // Sin respuesta (no hay red)
@@ -52,12 +36,14 @@ async function peticionAuth(ruta, cuerpo) {
 
   if (!respuesta.ok) {
     const retryAfter = respuesta.headers.get("Retry-After");
+    const error =
+      datos?.error && typeof datos.error === "object" ? datos.error : datos;
     throw {
       tipo: "api",
       status: respuesta.status,
-      codigo: datos?.error || datos?.codigo || null,
-      mensaje: datos?.mensaje || null,
-      campos: datos?.campos || {},
+      codigo: error?.codigo || datos?.codigo || null,
+      mensaje: error?.mensaje || datos?.mensaje || null,
+      campos: error?.campos || datos?.campos || {},
       retryAfter: retryAfter ? Number(retryAfter) : null,
     };
   }
@@ -68,13 +54,35 @@ async function peticionAuth(ruta, cuerpo) {
 // --- ENDPOINTS DEL CONTRATO ---
 
 export function postIniciarSesion({ correo, clave }) {
-  return peticionAuth("/sesion", { correo, clave });
+  return peticionAuth("/sesion", {
+    method: "POST",
+    cuerpo: { correo, clave },
+  });
+}
+
+export async function obtenerSesion() {
+  try {
+    return await peticionAuth("/sesion", { method: "GET" });
+  } catch (error) {
+    if (error?.status === 401) return null;
+    throw error;
+  }
+}
+
+export function postCerrarSesion() {
+  return peticionAuth("/sesion", { method: "DELETE" });
 }
 
 export function postSolicitarRecuperacion({ correo }) {
-  return peticionAuth("/recuperacion", { correo });
+  return peticionAuth("/recuperacion", {
+    method: "POST",
+    cuerpo: { correo },
+  });
 }
 
 export function postNuevaClave({ correo, codigo, clave }) {
-  return peticionAuth("/recuperacion/nueva-clave", { correo, codigo, clave });
+  return peticionAuth("/recuperacion/nueva-clave", {
+    method: "POST",
+    cuerpo: { correo, codigo, clave },
+  });
 }

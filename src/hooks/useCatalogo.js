@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import API_BASE_URL from "../config/api";
 
 export function useCatalogo({ orden = "populares", limite = 6 } = {}) {
   const [albumes, setAlbumes] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(false);
+  const [intento, setIntento] = useState(0);
 
   useEffect(() => {
     const controlador = new AbortController();
@@ -32,7 +33,9 @@ export function useCatalogo({ orden = "populares", limite = 6 } = {}) {
 
     cargar();
     return () => controlador.abort();
-  }, [orden, limite]);
+  }, [orden, limite, intento]);
 
-  return { albumes, cargando, error };
+  const recargar = useCallback(() => setIntento((n) => n + 1), []);
+
+  return { albumes, cargando, error, recargar };
 }

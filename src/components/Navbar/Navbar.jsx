@@ -116,7 +116,7 @@ const Navbar = ({
         </Link>
 
         <div className="navbar-movil-acciones">
-          {!abierto && (
+          {!abierto && estaAutenticado && (
             <button
               type="button"
               className="navbar-icono navbar-buscar-movil"
@@ -174,7 +174,11 @@ const Navbar = ({
                     end={clave === "inicio"}
                     onClick={() => setAbierto(false)}
                   >
-                    <Icono nombre={clave === "inicio" ? "inicio" : "buscar"} />
+                    {estaAutenticado && (
+                      <Icono
+                        nombre={clave === "inicio" ? "inicio" : "buscar"}
+                      />
+                    )}
                     {etiqueta}
                   </NavLink>
                 </li>

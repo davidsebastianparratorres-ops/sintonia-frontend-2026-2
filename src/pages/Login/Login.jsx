@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import Icono from "../../components/Icono";
 import { useAuth } from "../../context/AuthContext.jsx";
@@ -37,6 +37,16 @@ const Login = () => {
   const [alerta, setAlerta] = useState(null); // "obligatorios" | "credenciales" | "limite" | "conexion" | null
   const [erroresCampo, setErroresCampo] = useState({});
   const [segundos, setSegundos] = useState(0);
+  const correoRef = useRef(null);
+  const claveRef = useRef(null);
+
+  function enfocarPrimerCampoConError(campos) {
+    if (campos.correo) {
+      correoRef.current?.focus();
+    } else if (campos.clave) {
+      claveRef.current?.focus();
+    }
+  }
 
   useEffect(() => {
     if (t?.seo?.titulo) document.title = t.seo.titulo;
@@ -63,6 +73,7 @@ const Login = () => {
     if (Object.keys(vacios).length) {
       setErroresCampo(vacios);
       setAlerta("obligatorios");
+      enfocarPrimerCampoConError(vacios);
       return;
     }
 
@@ -80,7 +91,9 @@ const Login = () => {
       } else if (error?.status === 401) {
         setAlerta("credenciales");
       } else if (error?.status === 422) {
-        setErroresCampo(normalizarCampos(error.campos));
+        const campos = normalizarCampos(error.campos);
+        setErroresCampo(campos);
+        enfocarPrimerCampoConError(campos);
       } else if (error?.status === 429) {
         setSegundos(Number(error.retryAfter) || 0);
         setAlerta("limite");
@@ -138,6 +151,7 @@ const Login = () => {
           {form?.etiquetas?.correo}
         </label>
         <input
+          ref={correoRef}
           id="login-correo"
           className="login-input cuerpo-m"
           type="email"
@@ -162,6 +176,7 @@ const Login = () => {
         </label>
         <div className="login-input-envoltura">
           <input
+            ref={claveRef}
             id="login-clave"
             className="login-input login-input-clave cuerpo-m"
             type={verClave ? "text" : "password"}
