@@ -9,7 +9,7 @@ import InvitacionRegistro from "../../components/InvitacionRegistro/InvitacionRe
 
 export default function Home() {
   // Recibe los datos globales que ahora viven en LayoutPublico
-  const { datos, abrirCuenta } = useOutletContext();
+  const { datos } = useOutletContext();
   const navigate = useNavigate();
 
   const seleccionarAlbum = (album) => {
@@ -18,32 +18,42 @@ export default function Home() {
     }
   };
 
-  const { albumes, cargando: cargandoAlbumes, error: errorAlbumes } = useCatalogo();
-  const { generos } = useGeneros();
+  const {
+    albumes,
+    cargando: cargandoAlbumes,
+    error: errorAlbumes,
+    recargar: recargarAlbumes,
+  } = useCatalogo();
+  const {
+    generos,
+    cargando: cargandoGeneros,
+    error: errorGeneros,
+    recargar: recargarGeneros,
+  } = useGeneros();
 
   return (
     <main className="pagina-inicio">
       <HeroSintonia
         {...datos}
         totalGeneros={generos.length}
-        abrirCuenta={abrirCuenta}
       />
       <SeccionAlbumes
         {...datos}
         albumes={albumes}
         cargando={cargandoAlbumes}
         error={errorAlbumes}
+        recargar={recargarAlbumes}
         filaHorizontalMovil
         onSeleccionar={seleccionarAlbum}
       />
       <SeccionGeneros
         {...datos}
         generos={generos}
+        cargando={cargandoGeneros}
+        error={errorGeneros}
+        recargar={recargarGeneros}
       />
-      <InvitacionRegistro
-        {...datos}
-        abrirCuenta={abrirCuenta}
-      />
+      <InvitacionRegistro {...datos} />
     </main>
   );
 }

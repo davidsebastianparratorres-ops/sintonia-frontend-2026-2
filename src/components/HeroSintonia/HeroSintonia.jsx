@@ -2,7 +2,7 @@ import CollagePortadas from "../CollagePortadas/CollagePortadas.jsx";
 import { Link } from "react-router-dom";
 import "./HeroSintonia.css";
 
-export default function HeroSintonia({ textos, totalGeneros, abrirCuenta }) {
+export default function HeroSintonia({ textos, totalGeneros }) {
   const hero = textos?.paginas?.inicioPublico?.hero;
   const cifras = textos?.paginas?.inicioPublico?.cifras;
 
@@ -19,13 +19,6 @@ export default function HeroSintonia({ textos, totalGeneros, abrirCuenta }) {
         <p className="cuerpo-g">{hero?.subtitulo}</p>
 
         <div className="grupo-botones">
-          <button
-            type="button"
-            className="btn btn-primario-g"
-            onClick={() => abrirCuenta("registro")}
-          >
-            {hero?.botones?.crearCuentaGratis}
-          </button>
           <Link className="btn btn-secundario-g" to="/catalogo">
             {hero?.botones?.explorarCatalogo}
           </Link>

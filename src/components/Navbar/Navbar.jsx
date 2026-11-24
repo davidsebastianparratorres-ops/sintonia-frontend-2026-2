@@ -249,9 +249,10 @@ const Navbar = ({
                   <button
                     type="button"
                     className="navbar-cerrar-sesion-movil cuerpo-p-fuerte"
-                    onClick={() => {
-                      cerrarSesion();
+                    onClick={async () => {
+                      await cerrarSesion();
                       setAbierto(false);
+                      navigate("/");
                     }}
                   >
                     {etiquetaCerrarSesion}
@@ -313,9 +314,10 @@ const Navbar = ({
                   type="button"
                   className="navbar-menu-usuario-salir cuerpo-p-fuerte"
                   role="menuitem"
-                  onClick={() => {
-                    cerrarSesion();
+                  onClick={async () => {
+                    await cerrarSesion();
                     setPerfilAbierto(false);
+                    navigate("/");
                   }}
                 >
                   <Icono nombre="salir" />

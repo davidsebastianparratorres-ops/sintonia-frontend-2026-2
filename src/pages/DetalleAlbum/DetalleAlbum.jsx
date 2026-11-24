@@ -20,7 +20,7 @@ export default function DetalleAlbum({ textos: textosProp, idioma: idiomaProp })
   const textos = textosProp ?? datos.textos;
   const idioma = idiomaProp ?? contexto?.idioma ?? "es";
   const { album, cargando, error, noEncontrado, recargar } = useAlbum(id);
-  const errorConexion = textos?.errores?.conexion;
+  const estadoError = textos?.estados?.error;
 
   // Todos los textos salen de la API: textos.paginas.album
   const t = textos?.paginas?.album;
@@ -63,7 +63,11 @@ export default function DetalleAlbum({ textos: textosProp, idioma: idiomaProp })
   if (cargando || !t) {
     return (
       <main className="detalle-album ancho-home" aria-busy="true">
-        <p role="status" className="texto-vacio">
+        <p
+          role="status"
+          aria-label={textos?.estados?.cargando?.aria}
+          className="texto-vacio"
+        >
           {textos?.estados?.cargando?.titulo}
         </p>
       </main>
@@ -86,17 +90,17 @@ export default function DetalleAlbum({ textos: textosProp, idioma: idiomaProp })
     return (
       <main className="detalle-album ancho-home detalle-album-estado">
         <p role="alert" className="texto-vacio">
-          {textos?.estados?.error?.titulo}
+          {estadoError?.titulo}
         </p>
-        {errorConexion?.texto && (
-          <p className="cuerpo-p">{errorConexion.texto}</p>
+        {estadoError?.descripcion && (
+          <p className="cuerpo-p">{estadoError.descripcion}</p>
         )}
         <button
           type="button"
           className="detalle-album-reintentar"
           onClick={recargar}
         >
-          {errorConexion?.botones?.reintentar}
+          {estadoError?.botones?.reintentar}
         </button>
       </main>
     );

@@ -19,7 +19,7 @@ export default function SeccionAlbumes({
   const destacados = textos?.paginas?.inicioPublico?.destacados;
   const tituloFinal = titulo || destacados?.titulo;
   const vacio = !cargando && !error && albumes.length === 0;
-  const errorConexion = textos?.errores?.conexion;
+  const estadoError = textos?.estados?.error;
 
   return (
     <section
@@ -38,22 +38,26 @@ export default function SeccionAlbumes({
       </div>
 
       {cargando && (
-        <p role="status" className="texto-vacio">
+        <p
+          role="status"
+          aria-label={textos?.estados?.cargando?.aria}
+          className="texto-vacio"
+        >
           {textos?.estados?.cargando?.titulo}
         </p>
       )}
 
       {error && (
         <div role="alert" className="texto-vacio">
-          <p>{textos?.estados?.error?.titulo}</p>
-          {errorConexion?.texto && <p>{errorConexion.texto}</p>}
+          <p>{estadoError?.titulo}</p>
+          {estadoError?.descripcion && <p>{estadoError.descripcion}</p>}
           {recargar && (
             <button
               type="button"
               className="seccion-albumes-reintentar"
               onClick={recargar}
             >
-              {errorConexion?.botones?.reintentar}
+              {estadoError?.botones?.reintentar}
             </button>
           )}
         </div>

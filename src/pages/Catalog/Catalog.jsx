@@ -25,7 +25,12 @@ export default function Catalogo() {
   const generoActivo = searchParams.get("genero") || null;
 
   // 3. Carga los géneros por sí mismo (antes venían por props desde Home)
-  const { generos } = useGeneros();
+  const {
+    generos,
+    cargando: cargandoGeneros,
+    error: errorGeneros,
+    recargar: recargarGeneros,
+  } = useGeneros();
   const {
     detalle,
     cargando,
@@ -41,7 +46,7 @@ export default function Catalogo() {
 
   const textos = datos?.textos;
   const tCat = datos?.textos?.paginas?.catalogo;
-  const errorConexion = textos?.errores?.conexion;
+  const estadoError = textos?.estados?.error;
 
   // Mientras carga el detalle, usamos lo básico que ya viene en la lista de géneros
   const generoSeleccionado =
@@ -86,24 +91,31 @@ export default function Catalogo() {
         genero={generoActivo}
         filtrar={alternarGenero}
         esCatalogo
+        cargando={cargandoGeneros}
+        error={errorGeneros}
+        recargar={recargarGeneros}
       />
 
       {generoActivo && error && (
         <div role="alert" className="catalogo-error">
-          <p>{textos?.estados?.error?.titulo}</p>
-          {errorConexion?.texto && <p>{errorConexion.texto}</p>}
+          <p>{estadoError?.titulo}</p>
+          {estadoError?.descripcion && <p>{estadoError.descripcion}</p>}
           <button
             type="button"
             className="seccion-albumes-reintentar"
             onClick={recargarGenero}
           >
-            {errorConexion?.botones?.reintentar}
+            {estadoError?.botones?.reintentar}
           </button>
         </div>
       )}
 
       {generoActivo && cargando && (
-        <p role="status" className="catalogo-cargando">
+        <p
+          role="status"
+          aria-label={textos?.estados?.cargando?.aria}
+          className="catalogo-cargando"
+        >
           {textos?.estados?.cargando?.titulo}
         </p>
       )}

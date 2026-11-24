@@ -1,5 +1,5 @@
 import { useEffect,useState } from "react";
-import API_BASE_URL from "../config/api";
+import { esErrorNoAutenticado, peticionApi } from "../services/auth.js";
 
 const CLAVES_MENU_INVITADO= ["inicio","catalogo"]
 
@@ -47,16 +47,14 @@ export function useTextos(idioma) {
 
     async function cargarTextosNavbar() {
       try {
-        const respuesta = await fetch(`${API_BASE_URL}/textos?idioma=${idioma}`, {
+        const datos = await peticionApi(`/textos?idioma=${encodeURIComponent(idioma)}`, {
+          method: "GET",
           signal: controlador.signal,
         });
-        if (!respuesta.ok) throw new Error(`HTTP ${respuesta.status}`);
-        //Si si respondio los datos correctamente
-        const datos = await respuesta.json();
         const nuevosTextos = validarTextos(datos);
         if (vigente) setTextos(nuevosTextos);
       } catch (error) {
-        if (vigente) {
+        if (vigente && !esErrorNoAutenticado(error)) {
           console.error("Error al cargar los textos:", error);
           setError(true);
         }

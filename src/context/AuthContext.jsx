@@ -4,6 +4,8 @@ import {
   obtenerSesion,
   postCerrarSesion,
   postIniciarSesion,
+  registrarManejadorNoAutenticado,
+  redirigirAIngresoSiCorresponde,
 } from "../services/auth.js";
 
 const AuthContext = createContext(null);
@@ -12,6 +14,17 @@ export function AuthProvider({ children }) {
   const [sesion, setSesion] = useState(null);
   const [cargandoSesion, setCargandoSesion] = useState(true);
   const sesionModificada = useRef(false);
+
+  useEffect(
+    () =>
+      registrarManejadorNoAutenticado(() => {
+        sesionModificada.current = true;
+        setSesion(null);
+        setCargandoSesion(false);
+        redirigirAIngresoSiCorresponde();
+      }),
+    [],
+  );
 
   useEffect(() => {
     let activa = true;

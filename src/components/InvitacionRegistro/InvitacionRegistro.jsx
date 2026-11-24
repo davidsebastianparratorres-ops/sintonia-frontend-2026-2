@@ -1,5 +1,5 @@
 import "./InvitacionRegistro.css";
-export default function InvitacionRegistro({textos, abrirCuenta }) {
+export default function InvitacionRegistro({textos}) {
     const inv=textos?.paginas?.inicioPublico?.cta ;
   return (
     <section className="ancho-home registro-sintonia">
@@ -13,7 +13,6 @@ export default function InvitacionRegistro({textos, abrirCuenta }) {
       </div>
       <button
         className="btn btn-inverso-g"
-        onClick={() => abrirCuenta("registro")}
       >
         {inv?.botones.crearCuentaGratis}
       </button>

@@ -1,6 +1,44 @@
 import API_BASE_URL from "../config/api.js";
 
 const CLAVE_SESION_ANTERIOR = "sintonia_sesion";
+const RUTAS_SIN_REDIRECCION = [
+  "/ingresar",
+  "/crear-cuenta",
+  "/recuperar-clave",
+];
+const manejadoresNoAutenticado = new Set();
+
+export function registrarManejadorNoAutenticado(manejador) {
+  manejadoresNoAutenticado.add(manejador);
+  return () => manejadoresNoAutenticado.delete(manejador);
+}
+
+export function esErrorNoAutenticado(error) {
+  return error?.status === 401 && error?.codigo === "no_autenticado";
+}
+
+function interceptarNoAutenticado() {
+  manejadoresNoAutenticado.forEach((manejador) => {
+    try {
+      manejador();
+    } catch (error) {
+      console.error("No se pudo procesar el cierre de sesión.", error);
+    }
+  });
+}
+
+function estaEnRutaPublicaDeSesion() {
+  const rutaActual = window.location.pathname;
+  return RUTAS_SIN_REDIRECCION.some(
+    (ruta) => rutaActual === ruta || rutaActual.startsWith(`${ruta}/`),
+  );
+}
+
+export function redirigirAIngresoSiCorresponde() {
+  if (!estaEnRutaPublicaDeSesion()) {
+    window.location.replace("/ingresar");
+  }
+}
 
 export function limpiarSesionAnterior() {
   localStorage.removeItem(CLAVE_SESION_ANTERIOR);
@@ -9,20 +47,29 @@ export function limpiarSesionAnterior() {
 
 // --- HELPER DE PETICIONES ---
 
-async function peticionAuth(ruta, { method = "POST", cuerpo } = {}) {
+export async function peticionApi(
+  ruta,
+  { method = "GET", cuerpo, signal, headers } = {},
+) {
   let respuesta;
   try {
     respuesta = await fetch(`${API_BASE_URL}${ruta}`, {
       method,
       credentials: "include",
+      signal,
+      ...(headers ? { headers } : {}),
       ...(cuerpo === undefined
         ? {}
         : {
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+              ...(headers ?? {}),
+            },
             body: JSON.stringify(cuerpo),
           }),
     });
-  } catch {
+  } catch (error) {
+    if (error?.name === "AbortError") throw error;
     // Sin respuesta (no hay red)
     throw { tipo: "red", status: 0 };
   }
@@ -38,10 +85,24 @@ async function peticionAuth(ruta, { method = "POST", cuerpo } = {}) {
     const retryAfter = respuesta.headers.get("Retry-After");
     const error =
       datos?.error && typeof datos.error === "object" ? datos.error : datos;
+    const codigoError =
+      error?.codigo ||
+      datos?.codigo ||
+      (typeof datos?.error === "string" ? datos.error : null);
+    const esNoAutenticado =
+      respuesta.status === 401 && codigoError === "no_autenticado";
+
+    if (
+      esNoAutenticado &&
+      !(method.toUpperCase() === "POST" && ruta.split("?")[0] === "/sesion")
+    ) {
+      interceptarNoAutenticado();
+    }
+
     throw {
       tipo: "api",
       status: respuesta.status,
-      codigo: error?.codigo || datos?.codigo || null,
+      codigo: codigoError,
       mensaje: error?.mensaje || datos?.mensaje || null,
       campos: error?.campos || datos?.campos || {},
       retryAfter: retryAfter ? Number(retryAfter) : null,
@@ -49,6 +110,10 @@ async function peticionAuth(ruta, { method = "POST", cuerpo } = {}) {
   }
 
   return datos;
+}
+
+async function peticionAuth(ruta, opciones = {}) {
+  return peticionApi(ruta, opciones);
 }
 
 // --- ENDPOINTS DEL CONTRATO ---

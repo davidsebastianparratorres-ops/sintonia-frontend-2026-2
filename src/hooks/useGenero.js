@@ -1,6 +1,6 @@
 // hooks/useGenero.js
 import { useCallback, useEffect, useState } from "react";
-import API_BASE_URL from "../config/api";
+import { esErrorNoAutenticado, peticionApi } from "../services/auth.js";
 
 export function useGenero(id) {
   const [detalle, setDetalle] = useState(null);
@@ -21,14 +21,16 @@ export function useGenero(id) {
 
     async function cargar() {
       try {
-        const respuesta = await fetch(`${API_BASE_URL}/generos/${id}`, {
+        const json = await peticionApi(`/generos/${encodeURIComponent(id)}`, {
+          method: "GET",
           signal: controlador.signal,
         });
-        if (!respuesta.ok) throw new Error(`HTTP ${respuesta.status}`);
-        const json = await respuesta.json();
         setDetalle(json?.datos ?? json);
       } catch (e) {
-        if (e.name !== "AbortError") setError(true);
+        if (
+          e.name !== "AbortError" &&
+          !esErrorNoAutenticado(e)
+        ) setError(true);
       } finally {
         if (!controlador.signal.aborted) setCargando(false);
       }

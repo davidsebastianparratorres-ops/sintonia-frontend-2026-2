@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { useTextos } from "../../hooks/useTextos.js";
-import { useDetalle } from "../../hooks/useDetalle.js";
 import { leerCookie } from "../../services/cookies.js";
 
 import Navbar from "../../components/Navbar/Navbar.jsx";
@@ -16,7 +15,6 @@ export default function LayoutPublico() {
 
   const { pathname } = useLocation();
   const datos = useTextos(idioma);
-  const { detalle, setDetalle, abrirCuenta } = useDetalle(idioma);
   // Sincroniza el atributo lang del documento con el idioma elegido
   useEffect(() => {
     document.documentElement.lang = idioma;
@@ -40,9 +38,6 @@ export default function LayoutPublico() {
         context={{
           datos,
           idioma,
-          detalle,
-          setDetalle,
-          abrirCuenta,
         }}
       />
 

@@ -9,6 +9,9 @@ export default function SeccionGeneros({
   genero,
   filtrar,
   esCatalogo = false,
+  cargando = false,
+  error = false,
+  recargar,
 }) {
   const navigate = useNavigate();
   const datosSeccion = esCatalogo
@@ -17,6 +20,8 @@ export default function SeccionGeneros({
 
   const titulo = datosSeccion?.titulo;
   const textoEnlace = datosSeccion?.enlaces?.verCatalogo;
+  const estadoCargando = textos?.estados?.cargando;
+  const estadoError = textos?.estados?.error;
 
   const alSeleccionar = esCatalogo
     ? filtrar
@@ -27,6 +32,7 @@ export default function SeccionGeneros({
       className={`ancho-home seccion-generos${esCatalogo ? " seccion-generos-catalogo" : ""}`}
       id="generos"
       aria-labelledby="generos-titulo"
+      aria-busy={cargando}
     >
       <div className="titulo-seccion">
         <h2 id="generos-titulo" className="titular-h2">{titulo}</h2>
@@ -38,23 +44,51 @@ export default function SeccionGeneros({
         )}
       </div>
 
-      <div className="generos-grid">
-        {generos.slice(0, esCatalogo ? 12 : 8).map((itemGenero, i) => {
-          const idGen = itemGenero?.id || itemGenero;
-          const nombreGen = itemGenero?.nombre || itemGenero;
+      {cargando && (
+        <p
+          role="status"
+          aria-label={estadoCargando?.aria}
+          className="texto-vacio"
+        >
+          {estadoCargando?.titulo}
+        </p>
+      )}
 
-          return (
-            <TarjetaGenero
-              key={idGen || i}
-              nombre={nombreGen}
-              idGenero={idGen}
-              datosGenero={itemGenero}
-              genero={esCatalogo ? genero : null}
-              filtrar={alSeleccionar}
-            />
-          );
-        })}
-      </div>
+      {error && (
+        <div role="alert" className="texto-vacio">
+          <p>{estadoError?.titulo}</p>
+          {estadoError?.descripcion && <p>{estadoError.descripcion}</p>}
+          {recargar && (
+            <button
+              type="button"
+              className="seccion-albumes-reintentar"
+              onClick={recargar}
+            >
+              {estadoError?.botones?.reintentar}
+            </button>
+          )}
+        </div>
+      )}
+
+      {!cargando && !error && (
+        <div className="generos-grid">
+          {generos.slice(0, esCatalogo ? 12 : 8).map((itemGenero, i) => {
+            const idGen = itemGenero?.id || itemGenero;
+            const nombreGen = itemGenero?.nombre || itemGenero;
+
+            return (
+              <TarjetaGenero
+                key={idGen || i}
+                nombre={nombreGen}
+                idGenero={idGen}
+                datosGenero={itemGenero}
+                genero={esCatalogo ? genero : null}
+                filtrar={alSeleccionar}
+              />
+            );
+          })}
+        </div>
+      )}
     </section>
   );
 }

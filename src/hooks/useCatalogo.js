@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import API_BASE_URL from "../config/api";
+import { esErrorNoAutenticado, peticionApi } from "../services/auth.js";
 
 export function useCatalogo({ orden = "populares", limite = 6 } = {}) {
   const [albumes, setAlbumes] = useState([]);
@@ -15,16 +15,17 @@ export function useCatalogo({ orden = "populares", limite = 6 } = {}) {
       setError(false);
       try {
         const params = new URLSearchParams({ orden, limite });
-        const respuesta = await fetch(`${API_BASE_URL}/albumes?${params}`, {
+        const json = await peticionApi(`/albumes?${params}`, {
+          method: "GET",
           signal: controlador.signal,
         });
-        if (!respuesta.ok) throw new Error(`HTTP ${respuesta.status}`);
-        const json = await respuesta.json();
         setAlbumes(json?.datos ?? json);
       } catch (err) {
         if (err.name !== "AbortError") {
-          console.error("Error al cargar álbumes:", err);
-          setError(true);
+          if (!esErrorNoAutenticado(err)) {
+            console.error("Error al cargar álbumes:", err);
+            setError(true);
+          }
         }
       } finally {
         if (!controlador.signal.aborted) setCargando(false);

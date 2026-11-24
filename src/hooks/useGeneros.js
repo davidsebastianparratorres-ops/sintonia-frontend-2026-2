@@ -1,24 +1,23 @@
-import { useEffect, useState } from "react";
-import API_BASE_URL from "../config/api";
+import { useCallback, useEffect, useState } from "react";
+import { esErrorNoAutenticado, peticionApi } from "../services/auth.js";
 
 export function useGeneros() {
   const [generos, setGeneros] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(false);
+  const [intento, setIntento] = useState(0);
 
   useEffect(() => {
     let activo = true;
+    setCargando(true);
+    setError(false);
 
     async function cargar() {
       try {
-        const respuesta = await fetch(`${API_BASE_URL}/generos`, {
-          credentials: "include",
-        });
-        if (!respuesta.ok) throw new Error(respuesta.status);
-        const json = await respuesta.json();
+        const json = await peticionApi("/generos");
         if (activo) setGeneros(json.datos ?? []);
-      } catch {
-        if (activo) setError(true);
+      } catch (error) {
+        if (activo && !esErrorNoAutenticado(error)) setError(true);
       } finally {
         if (activo) setCargando(false);
       }
@@ -28,7 +27,9 @@ export function useGeneros() {
     return () => {
       activo = false;
     };
-  }, []);
+  }, [intento]);
 
-  return { generos, cargando, error };
+  const recargar = useCallback(() => setIntento((n) => n + 1), []);
+
+  return { generos, cargando, error, recargar };
 }
