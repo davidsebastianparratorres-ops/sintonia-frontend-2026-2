@@ -94,7 +94,10 @@ export async function peticionApi(
 
     if (
       esNoAutenticado &&
-      !(method.toUpperCase() === "POST" && ruta.split("?")[0] === "/sesion")
+      !(
+        ruta.split("?")[0] === "/sesion" &&
+        ["GET", "POST"].includes(method.toUpperCase())
+      )
     ) {
       interceptarNoAutenticado();
     }
